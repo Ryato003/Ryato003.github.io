@@ -76,12 +76,32 @@
         .dark #sideNav details > summary.nav-summary::after { content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%238F918B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'); }
         #sideNav details[open] > summary.nav-summary::after { transform: rotate(180deg); }
 
-        /* Stili Modal Procedimento (Invariati) */
-        #procedureModal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; transition: opacity 0.2s ease-in-out; pointer-events: none; padding: 1rem; background-color: rgba(0, 0, 0, 0.6); }
+        /* Stili Modal Procedimento */
+        #procedureModal {
+            position: fixed; inset: 0; display: flex; /* Usa flex per centrare */
+            align-items: center; justify-content: center; z-index: 50;
+            opacity: 0; /* Inizia invisibile */
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none; /* Non interagibile quando invisibile */
+            padding: 1rem; background-color: rgba(0, 0, 0, 0.6);
+        }
         .dark #procedureModal { background-color: rgba(0, 0, 0, 0.7); }
-        #procedureModal.active { opacity: 1; pointer-events: auto; }
-        .modal-content { padding: 1.75rem; border-radius: 1rem; box-shadow: 0 24px 38px 3px rgb(0 0 0 / 0.14), 0 9px 46px 8px rgb(0 0 0 / 0.12), 0 11px 15px -7px rgb(0 0 0 / 0.2); max-width: 95%; width: 500px; max-height: 85vh; overflow-y: auto; position: relative; transition: background-color 0.3s ease, transform 0.2s ease-out; transform: scale(0.95); }
-        #procedureModal.active .modal-content { transform: scale(1); }
+        #procedureModal.active {
+            opacity: 1; /* Rendi visibile */
+            pointer-events: auto; /* Rendi interagibile */
+        }
+        .modal-content {
+            padding: 1.75rem; border-radius: 1rem;
+            box-shadow: 0 24px 38px 3px rgb(0 0 0 / 0.14), 0 9px 46px 8px rgb(0 0 0 / 0.12), 0 11px 15px -7px rgb(0 0 0 / 0.2);
+            max-width: 95%; width: 500px; max-height: 85vh; overflow-y: auto; position: relative;
+            transition: background-color 0.3s ease, transform 0.2s ease-out;
+            transform: scale(0.95); /* Inizia leggermente rimpicciolito */
+            background-color: #fff; /* Sfondo di default */
+        }
+        .dark .modal-content { background-color: #1f2937; } /* Sfondo dark mode */
+        #procedureModal.active .modal-content {
+            transform: scale(1); /* Scala alla dimensione normale quando attivo */
+        }
         .modal-close-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; padding: 0.5rem; line-height: 1; z-index: 10; border-radius: 9999px; transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out, color 0.15s ease-in-out; }
         .modal-close-btn:hover { transform: scale(1.1); }
         .modal-close-btn:active { transform: scale(1); }
@@ -92,7 +112,7 @@
 
         /* Header sticky (Invariato) */
         header { transition: background-color 0.3s ease, border-color 0.3s ease; }
-        .hidden-view { display: none; }
+        /* .hidden-view { display: none; } */ /* Non più usato per la modale */
         .main-container { max-width: 896px; margin-left: auto; margin-right: auto; padding: 1rem; }
         @media (min-width: 640px) { .main-container { padding: 1.5rem; } }
         @media (min-width: 1024px) { .main-container { padding: 2rem; } }
@@ -134,9 +154,8 @@
         </div>
     </div>
 
-    <div id="procedureModal" class="hidden">
-        <div id="modalContentDiv" class="modal-content relative bg-white dark:bg-slate-800">
-            <button id="closeModalBtn" class="modal-close-btn text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-white/10" aria-label="Chiudi modale">
+    <div id="procedureModal">
+        <div id="modalContentDiv" class="modal-content relative"> <button id="closeModalBtn" class="modal-close-btn text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-white/10" aria-label="Chiudi modale">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
             <h3 id="modalTitle" class="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Procedimento</h3>
@@ -163,73 +182,142 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const mainContainer = document.querySelector('.main-container');
 
-            // --- Dati Menu (Esempio Aprile - Settimana 2) ---
+            // --- Dati Menu (Esempio Aprile - Settimana 2 con Ricette Aggiornate da Ricerca Online) ---
+            // (menuData rimane invariato rispetto alla versione precedente)
             const menuData = {
                 "Aprile": {
                     "2": { // Settimana 2
                         "Lunedì": {
                             meals: [
                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte parzialmente scremato con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🍝', text: '150g Pasta integrale al pesto leggero di rucola con 150g Petto di pollo grigliato. Contorno abbondante di pomodori e insalata mista.', recipe: { title: 'Pesto Leggero di Rucola', procedure: "1. Metti nel mixer circa 30g di rucola.|2. Aggiungi 15g di frutta secca (noci o mandorle), 15g di Olio EVO, 1/2 spicchio d'aglio e 1 cucchiaino di succo di limone.|3. Aggiungi sale e pepe.|4. Frulla fino a ottenere una crema omogenea, aggiungendo 1-2 cucchiai d'acqua se necessario." } },
+                                { type: 'Pranzo', icon: '🍝', text: '150g Pasta integrale al pesto leggero di rucola con 150g Petto di pollo grigliato. Contorno abbondante di pomodori e insalata mista.',
+                                  recipeTriggerText: 'al pesto leggero di rucola',
+                                  // Ricetta AGGIORNATA da Fine Dining Lovers
+                                  recipe: {
+                                    title: 'Pesto Leggero di Rucola (Fonte: Fine Dining Lovers)',
+                                    procedure: "Versare la rucola (100g), i pinoli o noci (50g), l'aglio (1 spicchio), Parmigiano (50g), Pecorino (50g) e olio EVO (100ml) in un mixer.|Aggiungere sale e pepe.|Frullare fino ad ottenere un composto liscio e cremoso. (Per versione più leggera, ridurre formaggio/olio o usare solo noci)."
+                                    }
+                                },
                                 { type: 'Spuntino', icon: '🍎', text: '1 Mela + 170g Yogurt greco + 40g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🐟', text: "200g Orata (o Merluzzo) all'acqua pazza, 300g Patate lesse o al vapore, asparagi al vapore.", recipe: { title: "Cottura all'Acqua Pazza", procedure: "1. Soffriggi 1 spicchio d'aglio in 1 cucchiaino (5ml) di Olio EVO in una padella capiente.|2. Aggiungi circa 70-80g di pomodorini tagliati a metà e 1 cucchiaio di prezzemolo tritato.|3. Versa circa 100-150ml d'acqua o brodo vegetale leggero e porta a leggero bollore.|4. Adagia i filetti di pesce (200g), regola di sale e pepe.|5. Copri e cuoci a fuoco basso per 10-15 minuti (a seconda dello spessore) finché il pesce è cotto e opaco." } },
+                                { type: 'Cena', icon: '🐟', text: "200g Orata (o Merluzzo) all'acqua pazza, 300g Patate lesse o al vapore, asparagi al vapore.",
+                                  recipeTriggerText: "all'acqua pazza",
+                                  // Ricetta AGGIORNATA da Cookist
+                                  recipe: {
+                                    title: "Orata all'Acqua Pazza (Fonte: Cookist)",
+                                    procedure: "Lasciare imbiondire aglio (2 spicchi) in olio EVO in un tegame.|Versare pomodorini (400g) tagliati a metà, sale e pepe.|Disporre il pesce (2 orate) sui pomodori e far insaporire.|Sfumare con vino bianco (140ml).|Cuocere per circa 20 minuti, rigirando a metà cottura.|Servire con prezzemolo tritato."
+                                    }
+                                },
                                 { type: 'Spuntino pre nanna', icon: '🌙', text: "150g Fiocchi di latte + 10g Burro d'arachidi + 30g Gallette di riso/mais.", recipe: null }
                             ]
                         },
                         "Martedì": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🍚', text: '150g Riso e Lenticchie. Contorno di carote crude + 100g Ricottine.', recipe: { title: 'Riso e Lenticchie', procedure: "1. Prepara un soffritto con circa 40g di cipolla tritata e 1 cucchiaino (5ml) di olio EVO.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate se in scatola).|3. Aggiungi 150g di riso Basmati e tostalo leggermente per un minuto.|4. Copri con brodo vegetale caldo (circa 350-400ml).|5. Porta a cottura (circa 15-18 min) mescolando di tanto in tanto e aggiungendo altro brodo caldo se necessario.|6. Aggiusta di sale e aggiungi 1 rametto di rosmarino tritato a fine cottura." } },
-                                { type: 'Spuntino', icon: '🥜', text: '1 Pera + 30g Frutta secca + 40g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🦃', text: '200g Petto di tacchino saltato con funghi e cipolla, 130g Farro perlato, insalata mista.', recipe: { title: 'Petto di tacchino saltato con funghi', procedure: "1. Taglia 200g di petto di tacchino a striscioline o cubetti.|2. Affetta circa 80g di cipolla e 150g di funghi champignon.|3. Scalda 1-2 cucchiaini (5-10ml) di olio in una padella antiaderente e fai appassire la cipolla.|4. Aggiungi i funghi e cuoci finché l'acqua di vegetazione è evaporata.|5. Alza la fiamma, aggiungi il tacchino, sale, pepe.|6. Cuoci a fuoco vivace per 5-7 minuti, finché il tacchino è dorato e cotto internamente." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: '1 misurino (30g) Proteine in polvere sciolte in 200ml acqua o Latte + 20g Frutta secca.', recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🍚', text: '150g Riso e Lenticchie. Contorno di carote crude + 100g Ricottine.',
+                                   recipeTriggerText: 'Riso e Lenticchie',
+                                   // Ricetta ORIGINALE (Non trovata online con dosi precise nella ricerca)
+                                   recipe: { title: 'Riso e Lenticchie', procedure: "1. Prepara un soffritto con circa 40g di cipolla tritata e 1 cucchiaino (5ml) di olio EVO.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate se in scatola).|3. Aggiungi 150g di riso Basmati e tostalo leggermente per un minuto.|4. Copri con brodo vegetale caldo (circa 350-400ml).|5. Porta a cottura (circa 15-18 min) mescolando di tanto in tanto e aggiungendo altro brodo caldo se necessario.|6. Aggiusta di sale e aggiungi 1 rametto di rosmarino tritato a fine cottura." }
+                                 },
+                                 { type: 'Spuntino', icon: '🥜', text: '1 Pera + 30g Frutta secca + 40g Gallette di riso/mais.', recipe: null },
+                                 { type: 'Cena', icon: '🦃', text: '200g Petto di tacchino saltato con funghi e cipolla, 130g Farro perlato, insalata mista.',
+                                   recipeTriggerText: 'Petto di tacchino saltato con funghi',
+                                   // Ricetta AGGIORNATA (Adattata da Ricettario Bimby)
+                                   recipe: {
+                                     title: 'Petto di tacchino saltato con funghi (Adatt. da Ricettario Bimby)',
+                                     procedure: "Soffriggere aglio (1 spicchio) e prezzemolo in olio.|Aggiungere funghi (250g champignon + 250g misti) puliti e tagliati, sale/dado. Cuocere 10-15 min.|Tagliare petto di tacchino (3 fette) a strisce e infarinarlo.|Aggiungere il tacchino ai funghi.|Aggiungere latte (100-150ml) e sale/dado.|Cuocere per circa 10 min finché cotto e cremoso.|Servire con prezzemolo fresco." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: '1 misurino (30g) Proteine in polvere sciolte in 200ml acqua o Latte + 20g Frutta secca.', recipe: null }
                              ]
                         },
                          "Mercoledì": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🐔', text: '180g Petto di pollo alla pizzaiola. Accompagnare con 100g Pane integrale e verdure grigliate (melanzane/zucchine).', recipe: { title: 'Cottura alla Pizzaiola', procedure: "1. Infarina leggermente (facoltativo) 180g di petto di pollo.|2. Rosola 1 spicchio d'aglio in 1 cucchiaino (5ml) di olio EVO.|3. Aggiungi il pollo e fallo dorare su entrambi i lati.|4. Aggiungi pomodori pelati spezzettati (circa 200g), 1 cucchiaino di origano secco, 1 cucchiaino di capperi dissalati (se usati), sale e pepe.|5. Copri e cuoci a fuoco basso per circa 15-20 minuti, finché il pollo è tenero e il sugo si è addensato." } },
-                                { type: 'Spuntino', icon: '🍓', text: '1 Banana + 100g Ricottine con Cacao amaro.', recipe: null },
-                                { type: 'Cena', icon: '🥩', text: 'Polpette leggere al sugo con 130g Orzo perlato e spinaci saltati con aglio.', recipe: { title: 'Polpette Leggere al Sugo', procedure: "1. Impasta 180g di macinato magro con 15g di pane grattugiato, 30g di albume, 1 cucchiaio di prezzemolo tritato, sale e pepe.|2. Forma delle polpette non troppo grandi.|3. Prepara un sugo semplice soffriggendo 40g di cipolla tritata (o aglio) in 1 cucchiaino (5ml) di olio, aggiungendo pomodori pelati (circa 250g) e sale.|4. Adagia delicatamente le polpette nel sugo caldo.|5. Copri e cuoci a fuoco basso per almeno 20-25 minuti, girandole a metà cottura." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: '170g Yogurt greco + 40g Gallette di riso/mais + Miele (se gradito).', recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🐔', text: '180g Petto di pollo alla pizzaiola. Accompagnare con 100g Pane integrale e verdure grigliate (melanzane/zucchine).',
+                                   recipeTriggerText: 'alla pizzaiola',
+                                   // Ricetta AGGIORNATA da Casa Pappagallo
+                                   recipe: {
+                                     title: 'Petto di Pollo alla Pizzaiola (Fonte: Casa Pappagallo)',
+                                     procedure: "Rosolare fette di pollo (es. 180g) in olio e salare. Togliere dalla padella.|Nella stessa padella, aggiungere olio, pomodori pelati frullati (es. 150g), aglio (1 spicchio), capperi (pochi), origano. Cuocere 4-5 min, salare.|Aggiungere olive (poche). Rimettere il pollo nel sugo.|Aggiungere mozzarella (es. 40g) a pezzi sopra.|Coprire e cuocere a fuoco basso finché sciolta, o gratinare in forno." }
+                                 },
+                                 { type: 'Spuntino', icon: '🍓', text: '1 Banana + 100g Ricottine con Cacao amaro.', recipe: null },
+                                 { type: 'Cena', icon: '🥩', text: 'Polpette leggere al sugo con 130g Orzo perlato e spinaci saltati con aglio.',
+                                   recipeTriggerText: 'Polpette leggere al sugo',
+                                   // Ricetta ORIGINALE (Non trovata online con dosi precise nella ricerca)
+                                   recipe: { title: 'Polpette Leggere al Sugo', procedure: "1. Impasta 180g di macinato magro con 15g di pane grattugiato, 30g di albume, 1 cucchiaio di prezzemolo tritato, sale e pepe.|2. Forma delle polpette non troppo grandi.|3. Prepara un sugo semplice soffriggendo 40g di cipolla tritata (o aglio) in 1 cucchiaino (5ml) di olio, aggiungendo pomodori pelati (circa 250g) e sale.|4. Adagia delicatamente le polpette nel sugo caldo.|5. Copri e cuoci a fuoco basso per almeno 20-25 minuti, girandole a metà cottura." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: '170g Yogurt greco + 40g Gallette di riso/mais + Miele (se gradito).', recipe: null }
                              ]
-                        },
+                         },
                          "Giovedì": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🦐', text: '150g Riso integrale saltato con 150g Gamberetti e zucchine. Contorno di carote crude + 100g Formaggio spalmabile proteico.', recipe: { title: 'Riso saltato con Gamberetti e Zucchine', procedure: "1. Cuoci 150g di riso integrale.|2. Pulisci 150g di gamberetti.|3. Taglia una zucchina a julienne o piccoli cubetti.|4. Salta 1 spicchio d'aglio in 1-2 cucchiaini (5-10ml) di olio EVO.|5. Aggiungi i gamberetti e cuoci per 2-3 minuti finché cambiano colore.|6. Aggiungi le zucchine, sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato.|7. Salta per un altro minuto, le zucchine devono rimanere croccanti.|8. Unisci il riso cotto e manteca bene." } },
-                                { type: 'Spuntino', icon: '🍊', text: '1 Pera + 170g Yogurt greco + 30g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🍗', text: '200g Pollo arrosto con rosmarino, 300g Patate al forno, zucchine grigliate.', recipe: { title: 'Pollo Arrosto con Rosmarino', procedure: "1. Prendi 200g di pollo (cosce senza pelle o petto).|2. Condiscilo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 rametti di rosmarino tritato (e/o 1 spicchio d'aglio se gradito).|3. Disponilo su una teglia insieme a 300g di patate tagliate a spicchi e condite.|4. Cuoci in forno preriscaldato a 190-200°C per circa 30-45 minuti (a seconda della dimensione dei pezzi), finché il pollo è cotto e le patate sono tenere e dorate." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: '150g Fiocchi di latte + 30g Frutta secca.', recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🦐', text: '150g Riso integrale saltato con 150g Gamberetti e zucchine. Contorno di carote crude + 100g Formaggio spalmabile proteico.',
+                                   recipeTriggerText: 'saltato con 150g Gamberetti e zucchine',
+                                   // Ricetta ORIGINALE (Non trovata online con dosi precise nella ricerca)
+                                   recipe: { title: 'Riso saltato con Gamberetti e Zucchine', procedure: "1. Cuoci 150g di riso integrale.|2. Pulisci 150g di gamberetti.|3. Taglia una zucchina a julienne o piccoli cubetti.|4. Salta 1 spicchio d'aglio in 1-2 cucchiaini (5-10ml) di olio EVO.|5. Aggiungi i gamberetti e cuoci per 2-3 minuti finché cambiano colore.|6. Aggiungi le zucchine, sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato.|7. Salta per un altro minuto, le zucchine devono rimanere croccanti.|8. Unisci il riso cotto e manteca bene." }
+                                 },
+                                 { type: 'Spuntino', icon: '🍊', text: '1 Pera + 170g Yogurt greco + 30g Gallette di riso/mais.', recipe: null },
+                                 { type: 'Cena', icon: '🍗', text: '200g Pollo arrosto con rosmarino, 300g Patate al forno, zucchine grigliate.',
+                                   recipeTriggerText: 'Pollo arrosto con rosmarino',
+                                   // Ricetta ORIGINALE (Non trovata online versione semplice con dosi precise nella ricerca)
+                                   recipe: { title: 'Pollo Arrosto con Rosmarino', procedure: "1. Prendi 200g di pollo (cosce senza pelle o petto).|2. Condiscilo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 rametti di rosmarino tritato (e/o 1 spicchio d'aglio se gradito).|3. Disponilo su una teglia insieme a 300g di patate tagliate a spicchi e condite.|4. Cuoci in forno preriscaldato a 190-200°C per circa 30-45 minuti (a seconda della dimensione dei pezzi), finché il pollo è cotto e le patate sono tenere e dorate." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: '150g Fiocchi di latte + 30g Frutta secca.', recipe: null }
                              ]
-                        },
+                         },
                          "Venerdì": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🍲', text: 'Pasta e Lenticchie (100g pasta mista/ditalini). Servire con 50g Pane integrale.', recipe: { title: 'Pasta e Lenticchie', procedure: "1. Prepara un soffritto con circa 30g sedano, 30g carota, 40g cipolla tritati e 1 cucchiaino (5ml) di olio.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate), i pomodori pelati (circa 150g) spezzettati e brodo vegetale fino a coprire.|3. Porta a cottura (o a bollore se lenticchie già cotte).|4. Butta 100g di pasta mista/ditalini direttamente nella pentola.|5. Cuoci insieme finché la pasta è cotta, aggiungendo brodo caldo q.b. per mantenere la zuppa cremosa. Regola di sale e pepe." } },
-                                { type: 'Spuntino', icon: '🍊', text: '1 Banana + 170g Yogurt greco + 30g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🍳', text: 'Frittata al forno con spinaci e 50g Ricotta. Contorno di insalata mista e 100g Pane integrale.', recipe: { title: 'Frittata al Forno Spinaci e Ricotta', procedure: "1. Cuoci (lessa o salta in padella) circa 150-200g di spinaci freschi e strizzali bene.|2. Sbatti 3 uova intere con 100g albumi in una ciotola.|3. Aggiungi gli spinaci tritati grossolanamente, 50g ricotta, sale, pepe e un pizzico di noce moscata (facoltativa).|4. Mescola bene il composto.|5. Versa in una piccola teglia (diametro ~18-20cm) rivestita di carta forno.|6. Cuoci in forno preriscaldato a 180°C per circa 20-25 minuti o finché la frittata è gonfia, soda e leggermente dorata." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: "1 misurino (30g) Proteine in polvere + 10g Burro d'arachidi.", recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🍲', text: 'Pasta e Lenticchie (100g pasta mista/ditalini). Servire con 50g Pane integrale.',
+                                   recipeTriggerText: 'Pasta e Lenticchie',
+                                   // Ricetta AGGIORNATA da Cookist (via TikTok)
+                                   recipe: {
+                                     title: 'Pasta e Lenticchie (Fonte: Cookist/TikTok)',
+                                     procedure: "Sciacquare lenticchie secche (es. 60g per porzione) e cuocerle in acqua finché tenere.|In altra pentola, rosolare aglio (1 spicchio) in olio (1/2 cucchiaio).|Aggiungere pomodorini (1-2) tagliati e insaporire.|Scolare le lenticchie e aggiungerle ai pomodori, aggiungere acqua/brodo.|Portare a bollore, aggiungere pasta (es. 60g tubetti) e cuocere nel sugo.|Aggiustare di sale, aggiungere prezzemolo tritato. Riposare prima di servire." }
+                                 },
+                                 { type: 'Spuntino', icon: '🍊', text: '1 Banana + 170g Yogurt greco + 30g Gallette di riso/mais.', recipe: null },
+                                 { type: 'Cena', icon: '🍳', text: 'Frittata al forno con spinaci e 50g Ricotta. Contorno di insalata mista e 100g Pane integrale.',
+                                   recipeTriggerText: 'Frittata al forno con spinaci e 50g Ricotta',
+                                   // Ricetta AGGIORNATA da GnamGnam.it
+                                   recipe: {
+                                     title: 'Frittata Forno Spinaci e Ricotta (Fonte: GnamGnam.it)',
+                                     procedure: "Cuocere spinaci (es. 100g surgelati), strizzarli e sminuzzarli.|Lavorare ricotta (50g) con forchetta.|Aggiungere uova (1), mescolare.|Aggiungere spinaci, parmigiano (20g), sale, pepe. Mescolare.|Versare in teglia piccola unta/con carta forno.|Cuocere a 180°C ventilato per 20-25 min." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: "1 misurino (30g) Proteine in polvere + 10g Burro d'arachidi.", recipe: null }
                              ]
-                        },
+                         },
                          "Sabato": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🍕', text: 'Pizza Margherita o con verdure (fatta in casa o da asporto).', recipe: null },
-                                { type: 'Spuntino', icon: '🍌', text: '1 Pera + 150g Fiocchi di latte + 30g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🍣', text: '180g Salmone alla griglia, 130g Riso Basmati, spinaci saltati con aglio e Olio EVO.', recipe: { title: 'Salmone Grigliato', procedure: "1. Scalda bene una griglia o una padella antiaderente.|2. Condisci 180g di filetto di salmone con sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato (o aneto).|3. Cuoci sulla griglia calda per 3-5 minuti per lato (a seconda dello spessore e della cottura desiderata), iniziando dal lato della pelle se presente." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: '170g Yogurt greco + 20g Frutta secca.', recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🍕', text: 'Pizza Margherita o con verdure (fatta in casa o da asporto).', recipe: null }, // Nessuna ricetta specifica trovata/inserita
+                                 { type: 'Spuntino', icon: '🍌', text: '1 Pera + 150g Fiocchi di latte + 30g Gallette di riso/mais.', recipe: null },
+                                 { type: 'Cena', icon: '🍣', text: '180g Salmone alla griglia, 130g Riso Basmati, spinaci saltati con aglio e Olio EVO.',
+                                   recipeTriggerText: 'Salmone alla griglia',
+                                    // Ricetta ORIGINALE (Non trovata online con dosi precise nella ricerca)
+                                   recipe: { title: 'Salmone Grigliato', procedure: "1. Scalda bene una griglia o una padella antiaderente.|2. Condisci 180g di filetto di salmone con sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato (o aneto).|3. Cuoci sulla griglia calda per 3-5 minuti per lato (a seconda dello spessore e della cottura desiderata), iniziando dal lato della pelle se presente." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: '170g Yogurt greco + 20g Frutta secca.', recipe: null }
                              ]
-                        },
+                         },
                          "Domenica": {
                              meals: [
-                                { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
-                                { type: 'Pranzo', icon: '🍝', text: '150g Pasta integrale al ragù leggero. Contorno di insalata.', recipe: { title: 'Ragù Leggero', procedure: "1. Prepara un soffritto con 30g sedano, 30g carota, 40g cipolla tritati finemente e 1-2 cucchiaini (5-10ml) di olio EVO.|2. Aggiungi 150g di macinato magro (manzo o misto) e fallo rosolare bene sgranandolo.|3. Sfuma con 50ml di vino bianco o rosso (facoltativo) e lascia evaporare.|4. Aggiungi pomodori pelati (circa 300g) o passata, sale, pepe e una foglia d'alloro (facoltativo).|5. Copri e lascia sobbollire a fuoco basso per almeno 30-40 minuti, aggiungendo poca acqua calda o brodo q.b. se si asciuga troppo." } },
-                                { type: 'Spuntino', icon: '🍐', text: '1 Mela + 100g Ricottine + 40g Gallette di riso/mais.', recipe: null },
-                                { type: 'Cena', icon: '🍗', text: '200g Petto di pollo arrosto con erbe, 300g Patate al forno, melanzane al forno.', recipe: { title: 'Petto di Pollo Arrosto con Erbe', procedure: "1. Prendi 200g di petto di pollo.|2. Condiscilo massaggiandolo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 cucchiai di erbe aromatiche tritate (rosmarino, salvia, timo...).|3. Disponilo su una teglia rivestita di carta forno insieme a 300g di patate e melanzane tagliate a pezzi e condite.|4. Cuoci in forno preriscaldato a 190°C per circa 25-30 minuti o finché il pollo è cotto internamente (non secco) e le verdure sono tenere e dorate." } },
-                                { type: 'Spuntino pre nanna', icon: '🌙', text: "1 misurino (30g) Proteine sciolte in 200ml acqua o Latte + 10g Burro d'arachidi.", recipe: null }
+                                 { type: 'Colazione', icon: '🥛', text: '300ml Latte p.s. con 90g Biscotti secchi/ai cereali.', recipe: null },
+                                 { type: 'Pranzo', icon: '🍝', text: '150g Pasta integrale al ragù leggero. Contorno di insalata.',
+                                   recipeTriggerText: 'al ragù leggero',
+                                   // Ricetta ORIGINALE (Non trovata online con dosi precise nella ricerca)
+                                   recipe: { title: 'Ragù Leggero', procedure: "1. Prepara un soffritto con 30g sedano, 30g carota, 40g cipolla tritati finemente e 1-2 cucchiaini (5-10ml) di olio EVO.|2. Aggiungi 150g di macinato magro (manzo o misto) e fallo rosolare bene sgranandolo.|3. Sfuma con 50ml di vino bianco o rosso (facoltativo) e lascia evaporare.|4. Aggiungi pomodori pelati (circa 300g) o passata, sale, pepe e una foglia d'alloro (facoltativo).|5. Copri e lascia sobbollire a fuoco basso per almeno 30-40 minuti, aggiungendo poca acqua calda o brodo q.b. se si asciuga troppo." }
+                                 },
+                                 { type: 'Spuntino', icon: '🍐', text: '1 Mela + 100g Ricottine + 40g Gallette di riso/mais.', recipe: null },
+                                 { type: 'Cena', icon: '🍗', text: '200g Petto di pollo arrosto con erbe, 300g Patate al forno, melanzane al forno.',
+                                   recipeTriggerText: 'Petto di pollo arrosto con erbe',
+                                   // Ricetta AGGIORNATA da Cooker Girl (Nota: Elaborata e per pollo intero)
+                                   recipe: {
+                                     title: 'Pollo Arrosto alle Erbe (Fonte: Cooker Girl - Elaborata)',
+                                     procedure: "Creare farcia: frullare lardo(70g), burro(100g), erbe aromatiche abbondanti, aglio(1), scorza limone(1), senape(1 cucchiaino), sale, pepe.|Inserire parte della farcia sotto la pelle del petto (di un pollo intero).|Legare il pollo.|Cuocere su gratella sopra teglia con erbe/aglio/limone/olio.|Massaggiare esterno con altra farcia.|Forno statico: 220°C(10min) -> 200°C(10min) -> 160°C (1h/kg).|Irrorare a metà cottura. Temp. interna coscia ~72°C.|Riposare 20 min. (Nota: ricetta per pollo intero, molto ricca)." }
+                                 },
+                                 { type: 'Spuntino pre nanna', icon: '🌙', text: "1 misurino (30g) Proteine sciolte in 200ml acqua o Latte + 10g Burro d'arachidi.", recipe: null }
                              ]
-                        }
+                         }
                     }
                 }
             };
@@ -253,78 +341,79 @@
             }
 
             // --- Funzione per renderizzare i pasti di un giorno ---
-            // Ritorna il contenitore dei pasti (un div)
             function renderDayMenu(dayData) {
-                if (!dayData || !dayData.meals) return null;
+                 if (!dayData || !dayData.meals) return null;
 
-                const mealsContainer = document.createElement('div');
-                mealsContainer.className = 'space-y-4'; // Spazio tra i riquadri
+                 const mealsContainer = document.createElement('div');
+                 mealsContainer.className = 'space-y-4';
 
-                dayData.meals.forEach(meal => {
-                    const mealBox = document.createElement('div');
-                    mealBox.className = 'meal-box';
+                 dayData.meals.forEach(meal => {
+                     const mealBox = document.createElement('div');
+                     mealBox.className = 'meal-box';
 
-                    let mealColorClass = 'bg-gray-50 dark:bg-slate-700'; // Default
-                    if (meal.type === 'Colazione') mealColorClass = 'bg-blue-50 dark:bg-slate-700/80';
-                    else if (meal.type === 'Pranzo') mealColorClass = 'bg-green-50 dark:bg-slate-700/80';
-                    else if (meal.type === 'Spuntino') mealColorClass = 'bg-yellow-50 dark:bg-slate-700/80';
-                    else if (meal.type === 'Cena') mealColorClass = 'bg-red-50 dark:bg-slate-700/80';
-                    else if (meal.type === 'Spuntino pre nanna') mealColorClass = 'bg-purple-50 dark:bg-slate-700/80';
-                    mealBox.classList.add(...mealColorClass.split(' '));
+                     let mealColorClass = 'bg-gray-50 dark:bg-slate-700';
+                     if (meal.type === 'Colazione') mealColorClass = 'bg-blue-50 dark:bg-slate-700/80';
+                     else if (meal.type === 'Pranzo') mealColorClass = 'bg-green-50 dark:bg-slate-700/80';
+                     else if (meal.type === 'Spuntino') mealColorClass = 'bg-yellow-50 dark:bg-slate-700/80';
+                     else if (meal.type === 'Cena') mealColorClass = 'bg-red-50 dark:bg-slate-700/80';
+                     else if (meal.type === 'Spuntino pre nanna') mealColorClass = 'bg-purple-50 dark:bg-slate-700/80';
+                     mealBox.classList.add(...mealColorClass.split(' '));
 
-                    // Costruisce HTML interno del riquadro
-                    // Aggiunto text-sm per coerenza con stile precedente
-                    let mealHTML = `<div class="text-sm"><strong class="block mb-1">${meal.icon || ''} ${meal.type}:</strong> ${meal.text}</div>`;
+                     // Costruisce HTML base
+                     let mealHTML = `<div class="text-sm"><strong class="block mb-1">${meal.icon || ''} ${meal.type}:</strong> ${meal.text}</div>`;
 
-                    if (meal.recipe && meal.recipe.title) {
-                        // Aggiunge SEMPRE il link "(vedi ricetta)" se esiste una ricetta
-                        mealHTML = mealHTML.replace('</div>', ` (<span class="recipe-trigger text-blue-600 dark:text-indigo-400 hover:text-blue-700 dark:hover:text-indigo-300" data-title="${meal.recipe.title}" data-procedure="${meal.recipe.procedure || ''}">vedi ricetta</span>)</div>`);
-                    }
-                    mealBox.innerHTML = mealHTML;
-                    mealsContainer.appendChild(mealBox);
-                });
+                     // Se c'è una ricetta e un testo trigger specificato, sostituisci il testo trigger
+                     if (meal.recipe && meal.recipe.title && meal.recipeTriggerText) {
+                         const triggerSpan = `<span class="recipe-trigger text-blue-600 dark:text-indigo-400 hover:text-blue-700 dark:hover:text-indigo-300" data-title="${meal.recipe.title}" data-procedure="${meal.recipe.procedure || ''}">${meal.recipeTriggerText}</span>`;
+                         // Sostituisce solo la prima occorrenza del testo trigger
+                         mealHTML = mealHTML.replace(meal.recipeTriggerText, triggerSpan);
+                     }
 
-                return mealsContainer;
+                     mealBox.innerHTML = mealHTML;
+                     mealsContainer.appendChild(mealBox);
+                 });
+
+                 return mealsContainer;
             }
 
 
             // --- Funzione per Generare la Navigazione Dinamica ---
             function generaNavigazione() {
                  if (!navDynamicContent) { console.error("Elemento #navDynamicContent non trovato!"); return; }
-                navDynamicContent.innerHTML = '';
-                const calendarIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>`;
-                mesi.forEach(nomeMese => {
-                    const meseDetails = document.createElement('details');
-                    const meseSummary = document.createElement('summary');
-                    const monthClass = 'nav-month-' + nomeMese.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    meseSummary.classList.add('nav-summary', 'nav-summary-month', monthClass);
-                    meseSummary.innerHTML = `${calendarIconSvg} ${nomeMese}`;
-                    const settimaneContainer = document.createElement('div');
-                    for (let i = 1; i <= settimanePerMese; i++) {
-                        const settimanaDetails = document.createElement('details');
-                        const settimanaSummary = document.createElement('summary');
-                        settimanaSummary.classList.add('nav-summary');
-                        settimanaSummary.textContent = `Settimana ${i}`;
-                        const giorniContainer = document.createElement('div');
-                        giorni.forEach(nomeGiorno => {
-                            const giornoLink = document.createElement('a');
-                            giornoLink.href = '#';
-                            giornoLink.classList.add('nav-link-day');
-                            giornoLink.dataset.giorno = nomeGiorno;
-                            giornoLink.dataset.settimana = String(i);
-                            giornoLink.dataset.mese = nomeMese;
-                            giornoLink.textContent = nomeGiorno;
-                            giorniContainer.appendChild(giornoLink);
-                        });
-                        settimanaDetails.appendChild(settimanaSummary);
-                        settimanaDetails.appendChild(giorniContainer);
-                        settimaneContainer.appendChild(settimanaDetails);
-                    }
-                    meseDetails.appendChild(meseSummary);
-                    meseDetails.appendChild(settimaneContainer);
-                    navDynamicContent.appendChild(meseDetails);
-                });
-                 console.log("Navigazione Material You con colori generata.");
+                 navDynamicContent.innerHTML = '';
+                 const calendarIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>`;
+                 mesi.forEach(nomeMese => {
+                     const meseDetails = document.createElement('details');
+                     const meseSummary = document.createElement('summary');
+                     const monthClass = 'nav-month-' + nomeMese.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                     meseSummary.classList.add('nav-summary', 'nav-summary-month', monthClass);
+                     meseSummary.innerHTML = `${calendarIconSvg} ${nomeMese}`;
+                     const settimaneContainer = document.createElement('div');
+                     for (let i = 1; i <= settimanePerMese; i++) {
+                         const settimanaDetails = document.createElement('details');
+                         const settimanaSummary = document.createElement('summary');
+                         settimanaSummary.classList.add('nav-summary');
+                         settimanaSummary.textContent = `Settimana ${i}`;
+                         const giorniContainer = document.createElement('div');
+                         giorni.forEach(nomeGiorno => {
+                             const giornoLink = document.createElement('a');
+                             giornoLink.href = '#';
+                             giornoLink.classList.add('nav-link-day');
+                             giornoLink.dataset.giorno = nomeGiorno;
+                             giornoLink.dataset.settimana = String(i);
+                             giornoLink.dataset.mese = nomeMese;
+                             giornoLink.textContent = nomeGiorno;
+                             giorniContainer.appendChild(giornoLink);
+                         });
+                         settimanaDetails.appendChild(settimanaSummary);
+                         settimanaDetails.appendChild(giorniContainer);
+                         settimaneContainer.appendChild(settimanaDetails);
+                     }
+                     meseDetails.appendChild(meseSummary);
+                     meseDetails.appendChild(settimaneContainer);
+                     navDynamicContent.appendChild(meseDetails);
+                 });
+                  console.log("Navigazione Material You con colori generata.");
             }
 
             // --- Genera la navigazione e mostra placeholder iniziale ---
@@ -376,8 +465,8 @@
                                      showPlaceholder(placeholderTextNotAvailable);
                                 }
                             } else {
-                                showPlaceholder(placeholderTextNotAvailable);
-                                console.log("Menu non disponibile per la data selezionata.");
+                                 showPlaceholder(placeholderTextNotAvailable);
+                                 console.log("Menu non disponibile per la data selezionata.");
                             }
                         } else {
                             console.error("Elemento #menu non trovato!");
@@ -387,85 +476,86 @@
                 });
             }
 
-            // --- Logica Modale Ricette ---
+            // --- Logica Modale Ricette (CORRETTA) ---
              function getModalStyling(triggerElement) {
-                 const mealBox = triggerElement.closest('.meal-box');
-                 let modalBgClass = 'bg-white dark:bg-slate-800';
-                 let modalTextClass = 'text-slate-900 dark:text-slate-100';
-                 let closeBtnClasses = ['text-slate-500', 'hover:bg-slate-100', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-100', 'dark:hover:bg-white/10'];
-                 let markerColorClass = 'marker:text-slate-500 dark:marker:text-slate-400';
-                 // Non deriviamo più colori dal summary, usiamo default
-                 return { modalBgClass, modalTextClass, closeBtnClasses, markerColorClass };
+                  // Questa funzione può essere usata per stili più dinamici in futuro,
+                  // ma per ora usiamo gli stili CSS fissi per light/dark mode.
+                  let modalBgClass = ''; // Non più necessario impostare qui
+                  let modalTextClass = ''; // Non più necessario impostare qui
+                  let closeBtnClasses = ['text-slate-500', 'hover:bg-slate-100', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-100', 'dark:hover:bg-white/10'];
+                  let markerColorClass = 'marker:text-slate-500 dark:marker:text-slate-400';
+                  return { modalBgClass, modalTextClass, closeBtnClasses, markerColorClass };
              }
-             function removeAllColorClasses(element) {
-                 if (!element) return;
-                 const prefixes = ['bg-', 'text-', 'border-', 'marker:text-', 'hover:bg-', 'hover:text-', 'dark:bg-', 'dark:text-', 'dark:border-', 'dark:marker:text-', 'dark:hover:bg-', 'dark:hover:text-'];
-                 const classesToRemove = Array.from(element.classList).filter(cls => prefixes.some(prefix => cls.startsWith(prefix)));
-                 element.classList.remove(...classesToRemove);
-             }
+             // removeAllColorClasses non è più strettamente necessaria se gli stili sono fissi nel CSS
+             // function removeAllColorClasses(element) { ... }
+
              function openModal(title, procedure, styles) {
-                  if (!modalTitle || !modalProcedureText || !modalContentDiv || !closeModalBtn || !procedureModal) { console.error("Modal elements not found!"); return; }
-                 modalTitle.textContent = title || 'Procedimento';
-                 const steps = procedure ? procedure.split('|') : [];
-                 let procedureHtml = `<p>Procedimento non specificato.</p>`;
-                 if (steps.length > 0 && steps[0].trim() !== '') {
-                     procedureHtml = `<ol>`;
-                     steps.forEach(step => { procedureHtml += `<li>${step.trim()}</li>`; });
-                     procedureHtml += '</ol>';
-                 }
-                 modalProcedureText.innerHTML = procedureHtml;
-                 removeAllColorClasses(modalContentDiv);
-                 removeAllColorClasses(modalTitle);
-                 removeAllColorClasses(modalProcedureText);
-                 const listElement = modalProcedureText.querySelector('ol, p');
-                 if (listElement) removeAllColorClasses(listElement);
-                 removeAllColorClasses(closeModalBtn);
-                 modalContentDiv.classList.add(styles.modalBgClass);
-                 modalTitle.classList.add(styles.modalTextClass);
-                 if (listElement) {
-                    listElement.classList.add(styles.modalTextClass);
-                    if(listElement.tagName === 'OL') listElement.classList.add(styles.markerColorClass);
-                 }
-                 closeModalBtn.classList.add(...styles.closeBtnClasses);
-                 procedureModal.classList.remove('hidden');
-                 void procedureModal.offsetWidth;
-                 procedureModal.classList.add('active');
-                 body.style.overflow = 'hidden';
+                   if (!modalTitle || !modalProcedureText || !modalContentDiv || !closeModalBtn || !procedureModal) {
+                       console.error("Modal elements not found!"); return;
+                   }
+                  modalTitle.textContent = title || 'Procedimento';
+                  const steps = procedure ? procedure.split('|') : [];
+                  let procedureHtml = `<p class="text-slate-700 dark:text-slate-300">Procedimento non disponibile.</p>`; // Messaggio default se procedura vuota
+                  if (steps.length > 0 && steps[0].trim() !== '') {
+                       // Aggiunte classi di testo direttamente agli elementi li/ol
+                       procedureHtml = `<ol class="text-slate-700 dark:text-slate-300 ${styles.markerColorClass}">`;
+                       steps.forEach(step => { procedureHtml += `<li>${step.trim()}</li>`; });
+                       procedureHtml += '</ol>';
+                  }
+                  modalProcedureText.innerHTML = procedureHtml;
+
+                  // Applica stili rimanenti (es. bottone chiusura) se necessario
+                  // removeAllColorClasses(closeModalBtn); // Probabilmente non serve
+                  // closeModalBtn.classList.add(...styles.closeBtnClasses); // Già impostato nell'HTML
+
+                  // Rendi visibile la modale aggiungendo la classe 'active'
+                  procedureModal.classList.add('active');
+                  body.style.overflow = 'hidden'; // Blocca lo scroll del body
              }
+
              function closeModal() {
-                  if (!modalContentDiv || !modalTitle || !closeModalBtn || !procedureModal) return;
-                  procedureModal.classList.remove('active');
-                  setTimeout(() => {
-                      procedureModal.classList.add('hidden');
-                      body.style.overflow = '';
-                  }, 200);
+                   if (!procedureModal) return;
+                   // Nascondi la modale rimuovendo la classe 'active'
+                   procedureModal.classList.remove('active');
+                   // Ripristina lo scroll del body dopo la fine della transizione CSS (200ms)
+                   // Non serve più aggiungere/rimuovere 'hidden'
+                   setTimeout(() => {
+                       body.style.overflow = '';
+                   }, 200); // Deve corrispondere alla durata della transizione CSS
              }
+
              // Listener delegato su mainContainer per i trigger delle ricette
              if (mainContainer) {
-                mainContainer.addEventListener('click', function(event) {
-                    console.log("Click detected on mainContainer"); // Log per debug
-                    const trigger = event.target.closest('.recipe-trigger');
-                    if (trigger) {
-                        console.log("Recipe trigger clicked:", trigger); // Log per debug
-                        event.preventDefault();
-                        const title = trigger.dataset.title;
-                        const procedure = trigger.dataset.procedure;
-                        // Usiamo stili default per la modale ora
-                        const styles = getModalStyling(trigger);
-                        console.log("Opening modal with title:", title); // Log per debug
-                        openModal(title, procedure, styles);
-                    } else {
-                         console.log("Clicked element is not a recipe trigger:", event.target); // Log per debug
-                    }
-                });
+                 mainContainer.addEventListener('click', function(event) {
+                     const trigger = event.target.closest('.recipe-trigger');
+                     if (trigger) {
+                         event.preventDefault();
+                         const title = trigger.dataset.title;
+                         const procedure = trigger.dataset.procedure;
+                         const styles = getModalStyling(trigger); // Ottiene classi stile (anche se meno usate ora)
+                         console.log("Opening modal with title:", title); // Log per debug
+                         openModal(title, procedure, styles);
+                     }
+                 });
              } else {
-                  console.error("Main container not found for recipe trigger delegation.");
+                   console.error("Main container not found for recipe trigger delegation.");
              }
+
              // Listener chiusura modale
              if (closeModalBtn) { closeModalBtn.addEventListener('click', closeModal); }
              if (procedureModal) {
-                 procedureModal.addEventListener('click', function(event) { if (event.target === procedureModal) closeModal(); });
-                 document.addEventListener('keydown', function(event) { if (event.key === 'Escape' && procedureModal.classList.contains('active')) closeModal(); });
+                  // Chiudi se si clicca sullo sfondo scuro (l'overlay della modale stessa)
+                  procedureModal.addEventListener('click', function(event) {
+                      if (event.target === procedureModal) {
+                          closeModal();
+                      }
+                  });
+                  // Chiudi se si preme il tasto Escape
+                  document.addEventListener('keydown', function(event) {
+                      if (event.key === 'Escape' && procedureModal.classList.contains('active')) {
+                          closeModal();
+                      }
+                  });
              }
 
             console.log("DOMContentLoaded finished.");
