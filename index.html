@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="it"> <head>
+<html lang="it">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Settimanale App - Tema Chiaro/Scuro</title>
@@ -23,7 +24,7 @@
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         .dark .material-card {
-             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2); /* Ombra leggermente più forte per dark */
+             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
         }
 
         .material-summary {
@@ -112,13 +113,39 @@
         /* Classe per nascondere le viste non attive */
         .hidden-view { display: none; }
 
-        /* Stili per il Toggle Switch del Tema */
+        /* Stili per il Toggle Switch del Tema (FIXED) */
         .theme-switch-wrapper { display: flex; align-items: center; margin-bottom: 1rem; }
         .theme-switch { display: inline-block; height: 24px; position: relative; width: 44px; margin-left: auto; }
         .theme-switch input { display:none; }
-        .slider { bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 24px; }
-        .slider:before { bottom: 3px; content: ""; height: 18px; left: 3px; position: absolute; transition: .4s; width: 18px; border-radius: 50%; }
-        input:checked + .slider:before { transform: translateX(20px); }
+        .slider {
+            background-color: #cbd5e1; /* Colore base light (slate-300) */
+            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
+            transition: .4s; border-radius: 24px;
+        }
+        .dark .slider {
+             background-color: #475569; /* Colore base dark (slate-600) */
+        }
+        /* Stile per il pallino del toggle */
+        .slider:before {
+            background-color: #ffffff; /* Colore pallino light (white) - CORRETTO */
+            bottom: 3px; content: ""; height: 18px; left: 3px; position: absolute;
+            transition: .4s; width: 18px; border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Aggiunta ombra per visibilità */
+        }
+        .dark .slider:before {
+             background-color: #cbd5e1; /* Colore pallino dark (slate-300) - CORRETTO */
+        }
+        /* Colore slider quando attivo */
+        input:checked + .slider {
+            background-color: #4f46e5; /* Colore acceso toggle ON light (indigo-600) */
+        }
+        .dark input:checked + .slider {
+             background-color: #6366f1; /* Colore acceso toggle ON dark (indigo-500) */
+        }
+        /* Movimento pallino */
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
 
         /* Stile per il contenitore principale */
         .main-container { max-width: 896px; margin-left: auto; margin-right: auto; padding: 1rem; }
@@ -360,7 +387,7 @@
             // Listener per il cambio tema tramite toggle
             if (themeToggle) {
                 themeToggle.addEventListener('change', () => {
-                    try { // Aggiunto try-catch per robustezza
+                    try {
                         const selectedTheme = themeToggle.checked ? 'dark' : 'light';
                         console.log(`Toggle changed. Checked: ${themeToggle.checked}. Setting theme to: ${selectedTheme}`);
                         applyTheme(selectedTheme);
@@ -473,7 +500,7 @@
                         listElement.innerHTML = ''; // Pulisci
                         const items = shoppingListData[categoryName] || [];
                         if (items.length === 0) {
-                             listElement.innerHTML = '<li class="text-xs text-gray-400 dark:text-slate-500 italic px-2">Nessun articolo.</li>'; // Colore dark per testo vuoto
+                             listElement.innerHTML = '<li class="text-xs text-gray-400 dark:text-slate-500 italic px-2">Nessun articolo.</li>';
                              categoryDetail.style.display = '';
                              if (categoryName === 'Altro') categoryDetail.open = false;
                         } else {
@@ -679,18 +706,17 @@
                  if (daySummary) {
                      const bgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('bg-') && !cls.includes('dark:') && cls.endsWith('-100'));
                      const textMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('text-') && !cls.includes('dark:') && cls.endsWith('-800'));
-                     // Trova classi dark corrispondenti se esistono
-                     const darkBgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:bg-') && (cls.endsWith('-900/30') || cls.endsWith('-700/50'))); // Adatta se necessario
+                     const darkBgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:bg-') && (cls.endsWith('-900/30') || cls.endsWith('-700/50')));
                      const darkTextMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:text-') && cls.endsWith('-300'));
 
-                     if (bgMatch) bgColorClass = `${bgMatch} ${darkBgMatch || 'dark:bg-slate-800'}`; // Combina light e dark bg
+                     if (bgMatch) bgColorClass = `${bgMatch} ${darkBgMatch || 'dark:bg-slate-800'}`;
                      if (textMatch) {
-                         textColorClass = `${textMatch} ${darkTextMatch || 'dark:text-slate-100'}`; // Combina light e dark text
+                         textColorClass = `${textMatch} ${darkTextMatch || 'dark:text-slate-100'}`;
                          const baseColor = textMatch.split('-')[1];
                          const darkBaseColor = darkTextMatch ? darkTextMatch.split('-')[1] : 'slate';
-                         const darkTextIntensity = darkTextMatch ? darkTextMatch.split('-')[2] || '300' : '400'; // Es. dark:text-blue-300
-                         const lightTextIntensityHover = parseInt(textMatch.split('-')[2] || '800') + 100; // Es. 900
-                         const darkTextIntensityHover = parseInt(darkTextIntensity) + 100; // Es. 400
+                         const darkTextIntensity = darkTextMatch ? darkTextMatch.split('-')[2] || '300' : '400';
+                         const lightTextIntensityHover = parseInt(textMatch.split('-')[2] || '800') + 100;
+                         const darkTextIntensityHover = parseInt(darkTextIntensity) + 100;
 
                          closeBtnColorClass = `text-${baseColor}-700 dark:text-${darkBaseColor}-${darkTextIntensity} hover:text-${baseColor}-${lightTextIntensityHover} dark:hover:text-${darkBaseColor}-${darkTextIntensityHover} hover:bg-${baseColor}-200/50 dark:hover:bg-${darkBaseColor}-800/40`;
                          markerColorClass = `marker:text-${baseColor}-700 dark:marker:text-${darkBaseColor}-${darkTextIntensity}`;
@@ -709,19 +735,18 @@
                  const steps = procedure ? procedure.split('|') : [];
                  let procedureHtml = `<p class="${styles.textColorClass}">Procedimento non specificato.</p>`;
                  if (steps.length > 0 && steps[0].trim() !== '') {
-                     procedureHtml = `<ol class="${styles.textColorClass}">`; // Applica colore testo a ol
-                     steps.forEach(step => { procedureHtml += `<li class="${styles.markerColorClass}">${step.trim()}</li>`; }); // Applica colore marker
+                     procedureHtml = `<ol class="${styles.textColorClass}">`;
+                     steps.forEach(step => { procedureHtml += `<li class="${styles.markerColorClass}">${step.trim()}</li>`; });
                      procedureHtml += '</ol>';
                  }
                  modalProcedureText.innerHTML = procedureHtml;
 
                  removeBgClasses(modalContentDiv); removeTextClasses(modalTitle);
                  if (modalProcedureText.firstChild) removeTextClasses(modalProcedureText.firstChild);
-                 removeColorClasses(closeModalBtn, 'text'); removeHoverClasses(closeModalBtn); removeBgClasses(closeModalBtn); // Rimuovi anche bg hover
+                 removeColorClasses(closeModalBtn, 'text'); removeHoverClasses(closeModalBtn); removeBgClasses(closeModalBtn);
 
                  modalContentDiv.classList.add(...styles.bgColorClass.split(' '));
                  modalTitle.classList.add(...styles.textColorClass.split(' '));
-                 // Il colore testo procedura è già nell'innerHTML
                  closeModalBtn.classList.add(...styles.closeBtnColorClass.split(' '));
 
                  procedureModal.classList.remove('hidden'); void procedureModal.offsetWidth;
@@ -732,7 +757,6 @@
                  procedureModal.classList.remove('active');
                   setTimeout(() => {
                       procedureModal.classList.add('hidden'); body.style.overflow = '';
-                      // Resetta stili modal al default (considerando anche il dark mode attuale)
                       const isDark = document.documentElement.classList.contains('dark');
                       removeBgClasses(modalContentDiv); removeTextClasses(modalTitle);
                       if (modalProcedureText.firstChild) removeTextClasses(modalProcedureText.firstChild);
