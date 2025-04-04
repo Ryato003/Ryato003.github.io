@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
+<html lang="it"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Settimanale App - Tema Chiaro/Scuro</title>
@@ -113,7 +112,7 @@
         /* Classe per nascondere le viste non attive */
         .hidden-view { display: none; }
 
-        /* Stili per il Toggle Switch del Tema (FIXED) */
+        /* Stili per il Toggle Switch del Tema */
         .theme-switch-wrapper { display: flex; align-items: center; margin-bottom: 1rem; }
         .theme-switch { display: inline-block; height: 24px; position: relative; width: 44px; margin-left: auto; }
         .theme-switch input { display:none; }
@@ -125,24 +124,21 @@
         .dark .slider {
              background-color: #475569; /* Colore base dark (slate-600) */
         }
-        /* Stile per il pallino del toggle */
         .slider:before {
-            background-color: #ffffff; /* Colore pallino light (white) - CORRETTO */
+            background-color: #ffffff; /* Colore pallino light (white) */
             bottom: 3px; content: ""; height: 18px; left: 3px; position: absolute;
             transition: .4s; width: 18px; border-radius: 50%;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Aggiunta ombra per visibilità */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
         .dark .slider:before {
-             background-color: #cbd5e1; /* Colore pallino dark (slate-300) - CORRETTO */
+             background-color: #cbd5e1; /* Colore pallino dark (slate-300) */
         }
-        /* Colore slider quando attivo */
         input:checked + .slider {
             background-color: #4f46e5; /* Colore acceso toggle ON light (indigo-600) */
         }
         .dark input:checked + .slider {
              background-color: #6366f1; /* Colore acceso toggle ON dark (indigo-500) */
         }
-        /* Movimento pallino */
         input:checked + .slider:before {
             transform: translateX(20px);
         }
@@ -357,49 +353,59 @@
             const newItemInput = document.getElementById('newItemInput');
             const shoppingListCategories = listaSpesaView ? listaSpesaView.querySelectorAll('.material-card[data-category]') : [];
             const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement; // Riferimento a <html>
 
-            console.log("Nav Elements Selected:", { menuBtn, sideNav, navOverlay, navLinks });
-            console.log("View Elements Selected:", { menuView, listaSpesaView, settingsView });
-            console.log("Shopping List Categories Selected:", shoppingListCategories);
-            console.log("Add Item Form Elements Selected:", { addItemForm, newItemInput });
             console.log("Theme Toggle Selected:", themeToggle);
 
 
-             // --- Gestione Tema Chiaro/Scuro ---
-            function applyTheme(theme) {
-                document.documentElement.classList.remove('dark', 'light'); // Rimuovi entrambe
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    if (themeToggle) themeToggle.checked = true;
-                    console.log("Theme applied: Dark");
-                } else {
-                    document.documentElement.classList.add('light'); // Aggiungi light per chiarezza
-                    if (themeToggle) themeToggle.checked = false;
-                    console.log("Theme applied: Light");
-                }
-            }
+             // --- Gestione Tema Chiaro/Scuro (Logica Diretta e Semplificata) ---
 
-            // Inizializzazione del tema (Default Light se non c'è preferenza)
-            let currentTheme = localStorage.getItem('theme') || 'light';
-            console.log(`Theme from localStorage (or default): ${currentTheme}`);
-            applyTheme(currentTheme);
+             // 1. Inizializzazione del tema all'avvio
+             let initialTheme = localStorage.getItem('theme') || 'light'; // Default a 'light'
+             console.log(`Theme from localStorage (or default): ${initialTheme}`);
 
-            // Listener per il cambio tema tramite toggle
-            if (themeToggle) {
-                themeToggle.addEventListener('change', () => {
-                    try {
-                        const selectedTheme = themeToggle.checked ? 'dark' : 'light';
-                        console.log(`Toggle changed. Checked: ${themeToggle.checked}. Setting theme to: ${selectedTheme}`);
-                        applyTheme(selectedTheme);
-                        localStorage.setItem('theme', selectedTheme);
-                        console.log(`Theme preference saved: ${selectedTheme}`);
-                    } catch (error) {
-                         console.error("Error during theme toggle change:", error);
-                    }
-                });
-            } else {
-                console.error("Theme toggle button (#theme-toggle) not found!");
-            }
+             // Applica la classe iniziale a <html>
+             if (initialTheme === 'dark') {
+                 htmlElement.classList.add('dark');
+             } else {
+                 htmlElement.classList.remove('dark'); // Assicura che dark sia rimosso se light
+             }
+             console.log("Initial <html> classes:", htmlElement.classList.toString());
+
+             // Sincronizza lo stato del toggle DOPO aver applicato la classe
+             if (themeToggle) {
+                  themeToggle.checked = (initialTheme === 'dark');
+                  console.log(`Toggle initial state synchronized to: ${themeToggle.checked}`);
+             } else {
+                  console.error("Theme toggle button (#theme-toggle) not found! Cannot sync initial state.");
+             }
+
+
+             // 2. Listener per il cambio tema tramite toggle
+             if (themeToggle) {
+                 console.log("Attaching change listener to theme toggle.");
+                 themeToggle.addEventListener('change', (event) => {
+                     try {
+                         const isDark = event.target.checked; // Leggi lo stato attuale del checkbox
+                         const selectedTheme = isDark ? 'dark' : 'light';
+                         console.log(`Toggle changed. Checked: ${isDark}. Setting theme to: ${selectedTheme}`);
+
+                         // Applica il cambiamento usando toggle sulla classe html
+                         // toggle(className, force) - Aggiunge se force=true, rimuove se force=false
+                         htmlElement.classList.toggle('dark', isDark);
+
+                         // Salva la preferenza
+                         localStorage.setItem('theme', selectedTheme);
+                         console.log(`Theme preference saved: ${selectedTheme}`);
+                         console.log("Current <html> classes after toggle:", htmlElement.classList.toString()); // Verifica classi
+
+                     } catch (error) {
+                          console.error("Error during theme toggle change:", error);
+                     }
+                 });
+             } else {
+                 console.error("Theme toggle button (#theme-toggle) not found! Cannot attach listener.");
+             }
 
             // --- Gestione Viste ---
             const allViews = [menuView, listaSpesaView, settingsView];
@@ -651,7 +657,7 @@
             }
 
 
-            // --- Gestione Aggiunta Nuovo Articolo (con log dettagliati) ---
+            // --- Gestione Aggiunta Nuovo Articolo ---
             if (addItemForm && newItemInput) {
                 console.log("Add item form found. Attaching listener.");
                 addItemForm.addEventListener('submit', (event) => {
@@ -698,16 +704,16 @@
             function getModalStyling(triggerElement) {
                  const dayCard = triggerElement.closest('.material-card');
                  const daySummary = dayCard ? dayCard.querySelector('.material-summary') : null;
-                 let bgColorClass = 'bg-white dark:bg-slate-800'; // Default con dark
-                 let textColorClass = 'text-slate-800 dark:text-slate-100'; // Default con dark
-                 let closeBtnColorClass = 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-black/10 dark:hover:bg-white/10'; // Default con dark
-                 let markerColorClass = 'marker:text-slate-500 dark:marker:text-slate-400'; // Default con dark
+                 let bgColorClass = 'bg-white dark:bg-slate-800';
+                 let textColorClass = 'text-slate-800 dark:text-slate-100';
+                 let closeBtnColorClass = 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-black/10 dark:hover:bg-white/10';
+                 let markerColorClass = 'marker:text-slate-500 dark:marker:text-slate-400';
 
                  if (daySummary) {
                      const bgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('bg-') && !cls.includes('dark:') && cls.endsWith('-100'));
                      const textMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('text-') && !cls.includes('dark:') && cls.endsWith('-800'));
-                     const darkBgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:bg-') && (cls.endsWith('-900/30') || cls.endsWith('-700/50')));
-                     const darkTextMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:text-') && cls.endsWith('-300'));
+                     const darkBgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:bg-') && (cls.endsWith('-900/30') || cls.endsWith('-700/50') || cls.endsWith('-900/40') || cls.endsWith('-800/40')));
+                     const darkTextMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('dark:text-') && (cls.endsWith('-300') || cls.endsWith('-200')));
 
                      if (bgMatch) bgColorClass = `${bgMatch} ${darkBgMatch || 'dark:bg-slate-800'}`;
                      if (textMatch) {
@@ -716,9 +722,9 @@
                          const darkBaseColor = darkTextMatch ? darkTextMatch.split('-')[1] : 'slate';
                          const darkTextIntensity = darkTextMatch ? darkTextMatch.split('-')[2] || '300' : '400';
                          const lightTextIntensityHover = parseInt(textMatch.split('-')[2] || '800') + 100;
-                         const darkTextIntensityHover = parseInt(darkTextIntensity) + 100;
+                         const darkTextIntensityHover = parseInt(darkTextIntensity) + 100 > 900 ? 900 : parseInt(darkTextIntensity) + 100;
 
-                         closeBtnColorClass = `text-${baseColor}-700 dark:text-${darkBaseColor}-${darkTextIntensity} hover:text-${baseColor}-${lightTextIntensityHover} dark:hover:text-${darkBaseColor}-${darkTextIntensityHover} hover:bg-${baseColor}-200/50 dark:hover:bg-${darkBaseColor}-800/40`;
+                         closeBtnColorClass = `text-${baseColor}-700 dark:text-${darkBaseColor}-${darkTextIntensity} hover:text-${baseColor}-${lightTextIntensityHover} dark:hover:text-${darkBaseColor}-${darkTextIntensityHover} hover:bg-${baseColor}-200/60 dark:hover:bg-${darkBaseColor}-700/60`;
                          markerColorClass = `marker:text-${baseColor}-700 dark:marker:text-${darkBaseColor}-${darkTextIntensity}`;
                      }
                  }
