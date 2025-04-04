@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Settimanale App - Impostazioni Tema</title>
+    <title>Menu Settimanale App - Icone Aggiornate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,308 +11,367 @@
     <style>
         /* Stili Base */
         body {
-            /* Colori di base gestiti da Tailwind e dark: */
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Transizione fluida per cambio tema */
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #1f2937; /* text-gray-800 */
         }
 
-        /* Stili Material Card (invariati, i colori interni useranno dark:) */
+        /* Stili Material Card */
         .material-card {
-            /* bg-white dark:bg-gray-800 */
+            background-color: #ffffff; /* bg-white */
             border-radius: 1rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            /* dark:shadow-md dark:shadow-gray-900/50 */ /* Ombre per dark mode se necessario */
             margin-bottom: 1rem;
             overflow: hidden;
-            transition: background-color 0.3s ease;
         }
         .material-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            font-weight: 500;
-            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.25rem; font-weight: 500; cursor: pointer;
             transition: background-color 0.15s ease-in-out;
-            /* border-b-transparent */
-        }
-        .material-summary:hover {
-             /* bg-gray-50 dark:bg-gray-700/50 */
         }
          details[open] > .material-summary {
-             /* border-b border-gray-200 dark:border-gray-700 */
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+         }
+        .material-summary:hover {
+            background-color: rgba(0, 0, 0, 0.04); /* Leggero hover */
         }
         .material-summary::marker { content: ""; }
-        /* Icone +/- (SVG possono essere adattati per dark mode se necessario, ma spesso ereditano colore) */
+        /* Icone +/- */
         .material-summary::after {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* Grigio default */
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* gray-500 */
             display: inline-block; width: 20px; height: 20px; margin-left: 10px;
             transition: transform 0.2s ease-in-out; flex-shrink: 0;
         }
         details[open] > .material-summary::after {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* Grigio default */
-        }
-        /* Colore icone +/- in dark mode (se necessario sovrascrivere stroke nel SVG qui) */
-        .dark .material-summary::after {
-             content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* Grigio più chiaro */
-        }
-        .dark details[open] > .material-summary::after {
-             content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* Grigio più chiaro */
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>'); /* gray-500 */
         }
 
-        .material-summary svg.category-icon { width: 20px; height: 20px; margin-right: 0.75rem; flex-shrink: 0; /* Colore gestito da classi text-* dark:text-* */ }
-        .meal-item { padding: 0.75rem 1.25rem; border-radius: 0.75rem; margin-bottom: 0.75rem; transition: background-color 0.3s ease; }
+        .material-summary svg.category-icon { width: 20px; height: 20px; margin-right: 0.75rem; flex-shrink: 0; }
+        .meal-item { padding: 0.75rem 1.25rem; border-radius: 0.75rem; margin-bottom: 0.75rem; }
         .meal-item:last-child { margin-bottom: 0; }
-        .recipe-trigger { cursor: pointer; /* color-blue-600 dark:color-blue-400 */ font-weight: 500; text-decoration: underline dotted; text-underline-offset: 3px; transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out; }
-        .recipe-trigger:hover { /* color-blue-800 dark:color-blue-300 */ text-decoration: underline solid; /* text-decoration-color-blue-800 dark:text-decoration-color-blue-300 */ }
+        .recipe-trigger { cursor: pointer; font-weight: 500; text-decoration: underline dotted; text-underline-offset: 3px; transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out; }
+        .recipe-trigger:hover { text-decoration: underline solid; }
 
-        /* Stili Navigation Drawer (colori gestiti con dark:) */
-        #sideNav { position: fixed; top: 0; left: 0; height: 100%; width: 280px; /* bg-white dark:bg-gray-800 */ box-shadow: 0 8px 10px -5px rgb(0 0 0 / 0.2), 0 16px 24px 2px rgb(0 0 0 / 0.14), 0 6px 30px 5px rgb(0 0 0 / 0.12); /* dark:shadow-lg dark:shadow-black/30 */ transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease; z-index: 40; padding-top: 1rem; display: flex; flex-direction: column; }
+        /* Stili Navigation Drawer */
+        #sideNav { position: fixed; top: 0; left: 0; height: 100%; width: 280px; background-color: #ffffff; box-shadow: 0 8px 10px -5px rgb(0 0 0 / 0.2), 0 16px 24px 2px rgb(0 0 0 / 0.14), 0 6px 30px 5px rgb(0 0 0 / 0.12); transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 40; padding-top: 1rem; display: flex; flex-direction: column; }
         #sideNav.open { transform: translateX(0); }
-        #navHeader { padding: 1rem 1.5rem; /* border-b border-gray-200 dark:border-gray-700 */ margin-bottom: 0.5rem; }
-        #navHeader h2 { font-size: 1.125rem; font-weight: 600; /* text-gray-800 dark:text-gray-100 */ }
-        #navOverlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); /* dark:bg-black/60 */ z-index: 30; opacity: 0; transition: opacity 0.3s ease-in-out; pointer-events: none; }
+        #navHeader { padding: 1rem 1.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid #e5e7eb; }
+        #navHeader h2 { font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+        #navOverlay { position: fixed; inset: 0; z-index: 30; opacity: 0; transition: opacity 0.3s ease-in-out; pointer-events: none; background-color: rgba(0, 0, 0, 0.5); }
         #navOverlay.active { opacity: 1; pointer-events: auto; }
-        #sideNav a { display: flex; align-items: center; padding: 0.875rem 1.5rem; /* text-gray-700 dark:text-gray-300 */ font-weight: 500; border-radius: 0 1.75rem 1.75rem 0; margin-right: 1rem; margin-bottom: 0.25rem; transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out; text-decoration: none; }
-        #sideNav a:hover { /* bg-gray-100 dark:bg-gray-700 */ /* text-indigo-700 dark:text-indigo-300 */ }
-        #sideNav a.active { /* bg-indigo-100 dark:bg-indigo-900/50 */ /* text-indigo-800 dark:text-indigo-200 */ font-weight: 600; }
-        #sideNav a svg { margin-right: 1rem; width: 20px; height: 20px; flex-shrink: 0; stroke-width: 2; /* text-gray-500 dark:text-gray-400 */ transition: color 0.15s ease-in-out; }
-        #sideNav a:hover svg, #sideNav a.active svg { /* text-indigo-700 dark:text-indigo-300 */ }
+        #sideNav a { display: flex; align-items: center; padding: 0.875rem 1.5rem; font-weight: 500; border-radius: 0 1.75rem 1.75rem 0; margin-right: 1rem; margin-bottom: 0.25rem; transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out; text-decoration: none; color: #374151; }
+        #sideNav a:hover { background-color: #f3f4f6; color: #4f46e5; } /* gray-100, indigo-600 */
+        #sideNav a.active { background-color: #e0e7ff; color: #3730a3; font-weight: 600; } /* indigo-100, indigo-800 */
+        #sideNav a svg { margin-right: 1rem; width: 20px; height: 20px; flex-shrink: 0; stroke-width: 2; transition: color 0.15s ease-in-out; color: #6b7280; } /* gray-500 */
+        #sideNav a:hover svg, #sideNav a.active svg { color: #4f46e5; } /* indigo-600 */
 
-        /* Stili Modal Procedimento (colori gestiti con dark:) */
-        #procedureModal { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); /* dark:bg-black/70 */ display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; transition: opacity 0.2s ease-in-out; pointer-events: none; padding: 1rem; }
+        /* Stili Modal Procedimento */
+        #procedureModal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; transition: opacity 0.2s ease-in-out; pointer-events: none; padding: 1rem; background-color: rgba(0, 0, 0, 0.6); }
         #procedureModal.active { opacity: 1; pointer-events: auto; }
-        .modal-content { padding: 1.75rem; border-radius: 1rem; /* bg-white dark:bg-gray-800 */ box-shadow: 0 24px 38px 3px rgb(0 0 0 / 0.14), 0 9px 46px 8px rgb(0 0 0 / 0.12), 0 11px 15px -7px rgb(0 0 0 / 0.2); /* dark:shadow-xl dark:shadow-black/40 */ max-width: 95%; width: 500px; max-height: 85vh; overflow-y: auto; position: relative; transition: background-color 0.3s ease, transform 0.2s ease-out; transform: scale(0.95); }
+        .modal-content { padding: 1.75rem; border-radius: 1rem; box-shadow: 0 24px 38px 3px rgb(0 0 0 / 0.14), 0 9px 46px 8px rgb(0 0 0 / 0.12), 0 11px 15px -7px rgb(0 0 0 / 0.2); max-width: 95%; width: 500px; max-height: 85vh; overflow-y: auto; position: relative; transition: background-color 0.3s ease, transform 0.2s ease-out; transform: scale(0.95); background-color: #ffffff; /* Default background */ }
         #procedureModal.active .modal-content { transform: scale(1); }
-        .modal-close-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; padding: 0.5rem; line-height: 1; z-index: 10; border-radius: 9999px; transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out; /* text-gray-500 dark:text-gray-400 */ }
-        .modal-close-btn:hover { /* bg-gray-100 dark:bg-gray-700 */ /* text-gray-800 dark:text-gray-100 */ transform: scale(1.1); }
+        .modal-close-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; padding: 0.5rem; line-height: 1; z-index: 10; border-radius: 9999px; transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out; color: #6b7280; } /* Default color */
+        .modal-close-btn:hover { background-color: rgba(0, 0, 0, 0.1); color: #1f2937; transform: scale(1.1); }
         .modal-close-btn:active { transform: scale(1); }
         .modal-close-btn svg { display: block; width: 20px; height: 20px; }
-        #modalTitle { /* text-gray-800 dark:text-gray-100 */ }
-        #modalProcedureText { /* text-gray-700 dark:text-gray-300 */ }
         #modalProcedureText ol { list-style: decimal; margin-left: 1.5rem; }
         #modalProcedureText li { padding-left: 0.5rem; margin-bottom: 0.625rem; line-height: 1.6; }
-        #modalProcedureText li::marker { font-weight: 500; /* color-gray-600 dark:color-gray-400 */ }
+        #modalProcedureText li::marker { font-weight: 500; }
 
-        /* Stili Lista Spesa (colori gestiti con dark:) */
+        /* Stili Lista Spesa */
         .shopping-list-container { padding: 0.5rem 1.25rem 1rem; }
-        .shopping-list-item { display: flex; align-items: center; padding: 0.6rem 0; /* border-b border-gray-100 dark:border-gray-700 */ transition: background-color 0.15s ease-in-out; border-radius: 0.5rem; margin: 0 -0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; }
-        .shopping-list-item:hover { /* bg-gray-50 dark:bg-gray-700/50 */ }
+        .shopping-list-item { display: flex; align-items: center; padding: 0.6rem 0; transition: background-color 0.15s ease-in-out; border-radius: 0.5rem; margin: 0 -0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; border-bottom: 1px solid #f3f4f6; } /* gray-100 */
+        .shopping-list-item:hover { background-color: #f9fafb; } /* gray-50 */
         .shopping-list-item:last-child { border-bottom: none; }
-        .shopping-list-item input[type="checkbox"] { margin-right: 0.875rem; cursor: pointer; width: 1.15em; height: 1.15em; accent-color: #4f46e5; /* dark:accent-color-indigo-500 */ flex-shrink: 0; margin-top: 2px; /* border-gray-300 dark:border-gray-600 */ /* bg-white dark:bg-gray-700 */ }
-        .shopping-list-item label { transition: all 0.2s ease-in-out; flex-grow: 1; cursor: pointer; /* text-gray-700 dark:text-gray-300 */ }
-        .shopping-item-text.line-through { /* text-gray-400 dark:text-gray-500 */ text-decoration: line-through; text-decoration-thickness: 1.5px; /* text-decoration-gray-300 dark:text-decoration-gray-600 */ }
+        .shopping-list-item input[type="checkbox"] { margin-right: 0.875rem; cursor: pointer; width: 1.15em; height: 1.15em; flex-shrink: 0; margin-top: 2px; accent-color: #4f46e5; border: 1px solid #d1d5db; background-color: white; } /* indigo-600, gray-300 */
+        .shopping-list-item label { transition: all 0.2s ease-in-out; flex-grow: 1; cursor: pointer; color: #374151; } /* gray-700 */
+        .shopping-item-text.line-through { text-decoration: line-through; text-decoration-thickness: 1.5px; color: #9ca3af; text-decoration-color: #d1d5db; } /* gray-400, gray-300 */
 
-        /* Header sticky (colori gestiti con dark:) */
-        header { /* bg-white dark:bg-gray-800 */ /* border-b border-gray-200 dark:border-gray-700 */ transition: background-color 0.3s ease, border-color 0.3s ease; }
-        header h1 { /* text-gray-800 dark:text-gray-100 */ }
-        #menuBtn { /* hover:bg-gray-200 dark:hover:bg-gray-700 */ /* focus:ring-indigo-500 dark:focus:ring-indigo-400 */ }
-        #menuBtn svg { /* text-gray-700 dark:text-gray-300 */ }
+        /* Header sticky */
+        header { background-color: #ffffff; border-bottom: 1px solid #e5e7eb; } /* white, gray-200 */
 
         /* Classe per nascondere le viste non attive */
         .hidden-view { display: none; }
 
-        /* Stili per il Toggle Switch del Tema */
-        .theme-switch-wrapper { display: flex; align-items: center; margin-bottom: 1rem; }
-        .theme-switch { display: inline-block; height: 24px; position: relative; width: 44px; margin-left: auto; /* Allinea a destra */ }
-        .theme-switch input { display:none; }
-        .slider { background-color: #ccc; /* dark:bg-gray-600 */ bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 24px; }
-        .slider:before { background-color: #fff; /* dark:bg-gray-300 */ bottom: 3px; content: ""; height: 18px; left: 3px; position: absolute; transition: .4s; width: 18px; border-radius: 50%; }
-        input:checked + .slider { background-color: #4f46e5; /* Colore acceso per dark mode */ }
-        input:checked + .slider:before { transform: translateX(20px); }
-
-        /* Colori specifici per light/dark (gestiti principalmente con dark: prefix) */
-        /* Esempio di come potresti usare variabili CSS se non usassi dark: prefix */
-        /* :root { --bg-main: #f7f9fc; --text-main: #1f2937; ... } */
-        /* html.dark { --bg-main: #121212; --text-main: #e2e8f0; ... } */
-        /* body { background-color: var(--bg-main); color: var(--text-main); } */
-
-        /* Stile per il contenitore principale (Invariato) */
+        /* Stile per il contenitore principale */
         .main-container { max-width: 896px; margin-left: auto; margin-right: auto; padding: 1rem; }
         @media (min-width: 640px) { .main-container { padding: 1.5rem; } }
         @media (min-width: 1024px) { .main-container { padding: 2rem; } }
 
     </style>
-    <script>
-      (function() {
-        try {
-          const preference = localStorage.getItem('theme');
-          if (preference === 'dark' || (!preference && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-          }
-        } catch (e) {
-          console.error("Error reading theme preference:", e);
-        }
-      })();
-    </script>
-</head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-
-    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-20 border-b border-gray-200 dark:border-gray-700">
+    </head>
+<body class="bg-gray-100 text-gray-900"> <header class="bg-white shadow-sm sticky top-0 z-20 border-b border-gray-200">
         <div class="container mx-auto max-w-4xl px-4 h-16 flex items-center">
-            <button id="menuBtn" class="p-2 mr-3 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 dark:ring-offset-gray-800 transition-colors duration-150">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6 text-gray-700 dark:text-gray-300"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            <button id="menuBtn" class="p-2 mr-3 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6 text-gray-700"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
-            <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Menu Settimanale</h1>
+            <h1 class="text-xl font-semibold text-gray-800">Menu Settimanale</h1>
         </div>
     </header>
 
-    <nav id="sideNav" class="bg-white dark:bg-gray-800">
-         <div id="navHeader" class="border-b border-gray-200 dark:border-gray-700">
-             <h2 class="text-gray-800 dark:text-gray-100">Navigazione</h2>
+    <nav id="sideNav" class="bg-white">
+         <div id="navHeader" class="border-b border-gray-200">
+             <h2 class="text-gray-800">Navigazione</h2>
          </div>
-         <a href="#menu" class="nav-link active text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-indigo-700 dark:hover:text-indigo-300" data-target="menu-view">
-            <svg class="text-gray-500 dark:text-gray-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Menu Settimanale
+         <a href="#menu" class="nav-link active group text-gray-700 hover:bg-gray-100 hover:text-indigo-600" data-target="menu-view">
+            <svg class="text-gray-500 group-[.active]:text-indigo-600 group-hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Menu Settimanale
          </a>
-         <a href="#lista-spesa" class="nav-link text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-indigo-700 dark:hover:text-indigo-300" data-target="lista-spesa-view">
-            <svg class="text-gray-500 dark:text-gray-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Lista della Spesa
+         <a href="#lista-spesa" class="nav-link group text-gray-700 hover:bg-gray-100 hover:text-indigo-600" data-target="lista-spesa-view">
+            <svg class="text-gray-500 group-[.active]:text-indigo-600 group-hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Lista della Spesa
          </a>
-         <a href="#impostazioni" class="nav-link text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-indigo-700 dark:hover:text-indigo-300" data-target="settings-view">
-            <svg class="text-gray-500 dark:text-gray-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+         <a href="#impostazioni" class="nav-link group text-gray-700 hover:bg-gray-100 hover:text-indigo-600" data-target="settings-view">
+            <svg class="text-gray-500 group-[.active]:text-indigo-600 group-hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
              Impostazioni
          </a>
     </nav>
 
-    <div id="navOverlay" class="dark:bg-black/60"></div>
+    <div id="navOverlay" class="bg-black/50"></div>
 
     <div class="main-container mt-4">
 
         <div id="menu-view">
             <section id="menu" class="mb-12">
-                <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 flex items-center">
-                    <svg class="lucide lucide-calendar-check-2 mr-2 text-indigo-600 dark:text-indigo-400 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m16 20 2 2 4-4"/></svg>
+                <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-6 flex items-center">
+                    <svg class="lucide lucide-calendar-check-2 mr-2 text-indigo-600 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m16 20 2 2 4-4"/></svg>
                     Piani Giornalieri
                 </h2>
-                <details class="material-card bg-white dark:bg-gray-800" open>
-                    <summary class="material-summary bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200 border-b-transparent dark:border-b-transparent hover:bg-blue-200/50 dark:hover:bg-blue-800/60">Lunedì</summary>
-                    <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte parzialmente scremato con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🍝 Pranzo:</strong> 150g Pasta integrale <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Pesto Leggero di Rucola" data-procedure="1. Metti nel mixer circa 30g di rucola.|2. Aggiungi 15g di frutta secca (noci o mandorle), 15g di Olio EVO, 1/2 spicchio d'aglio e 1 cucchiaino di succo di limone.|3. Aggiungi sale e pepe.|4. Frulla fino a ottenere una crema omogenea, aggiungendo 1-2 cucchiai d'acqua se necessario.">al pesto leggero di rucola</span> con 150g Petto di pollo grigliato. Contorno abbondante di pomodori e insalata mista. </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍎 Spuntino:</strong> 1 Mela + 170g Yogurt greco + 40g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🐟 Cena:</strong> 200g Orata (o Merluzzo) <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Cottura all'Acqua Pazza" data-procedure="1. Soffriggi 1 spicchio d'aglio in 1 cucchiaino (5ml) di Olio EVO in una padella capiente.|2. Aggiungi circa 70-80g di pomodorini tagliati a metà e 1 cucchiaio di prezzemolo tritato.|3. Versa circa 100-150ml d'acqua o brodo vegetale leggero e porta a leggero bollore.|4. Adagia i filetti di pesce (200g), regola di sale e pepe.|5. Copri e cuoci a fuoco basso per 10-15 minuti (a seconda dello spessore) finché il pesce è cotto e opaco.">all'acqua pazza</span>, 300g Patate lesse o al vapore, asparagi al vapore. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 150g Fiocchi di latte + 10g Burro d'arachidi + 30g Gallette di riso/mais.</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 border-b-transparent dark:border-b-transparent hover:bg-green-200/50 dark:hover:bg-green-800/60">Martedì</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🍚 Pranzo:</strong> 150g <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Riso e Lenticchie" data-procedure="1. Prepara un soffritto con circa 40g di cipolla tritata e 1 cucchiaino (5ml) di olio EVO.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate se in scatola).|3. Aggiungi 150g di riso Basmati e tostalo leggermente per un minuto.|4. Copri con brodo vegetale caldo (circa 350-400ml).|5. Porta a cottura (circa 15-18 min) mescolando di tanto in tanto e aggiungendo altro brodo caldo se necessario.|6. Aggiusta di sale e aggiungi 1 rametto di rosmarino tritato a fine cottura.">Riso e Lenticchie.</span> Contorno di carote crude + 100g Ricottine. </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🥜 Spuntino:</strong> 1 Pera + 30g Frutta secca + 40g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🦃 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Petto di tacchino saltato con funghi" data-procedure="1. Taglia 200g di petto di tacchino a striscioline o cubetti.|2. Affetta circa 80g di cipolla e 150g di funghi champignon.|3. Scalda 1-2 cucchiaini (5-10ml) di olio in una padella antiaderente e fai appassire la cipolla.|4. Aggiungi i funghi e cuoci finché l'acqua di vegetazione è evaporata.|5. Alza la fiamma, aggiungi il tacchino, sale, pepe.|6. Cuoci a fuoco vivace per 5-7 minuti, finché il tacchino è dorato e cotto internamente.">Petto di tacchino saltato con funghi</span> e cipolla, 130g Farro perlato, insalata mista. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine in polvere sciolte in 200ml acqua o Latte + 20g Frutta secca.</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200 border-b-transparent dark:border-b-transparent hover:bg-yellow-200/50 dark:hover:bg-yellow-800/60">Mercoledì</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🐔 Pranzo:</strong> 180g Petto di pollo <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Cottura alla Pizzaiola" data-procedure="1. Infarina leggermente (facoltativo) 180g di petto di pollo.|2. Rosola 1 spicchio d'aglio in 1 cucchiaino (5ml) di olio EVO.|3. Aggiungi il pollo e fallo dorare su entrambi i lati.|4. Aggiungi pomodori pelati spezzettati (circa 200g), 1 cucchiaino di origano secco, 1 cucchiaino di capperi dissalati (se usati), sale e pepe.|5. Copri e cuoci a fuoco basso per circa 15-20 minuti, finché il pollo è tenero e il sugo si è addensato.">alla pizzaiola.</span> Accompagnare con 100g Pane integrale e verdure grigliate (melanzane/zucchine). </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍓 Spuntino:</strong> 1 Banana + 100g Ricottine con Cacao amaro.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🥩 Cena:</strong> <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Polpette Leggere al Sugo" data-procedure="1. Impasta 180g di macinato magro con 15g di pane grattugiato, 30g di albume, 1 cucchiaio di prezzemolo tritato, sale e pepe.|2. Forma delle polpette non troppo grandi.|3. Prepara un sugo semplice soffriggendo 40g di cipolla tritata (o aglio) in 1 cucchiaino (5ml) di olio, aggiungendo pomodori pelati (circa 250g) e sale.|4. Adagia delicatamente le polpette nel sugo caldo.|5. Copri e cuoci a fuoco basso per almeno 20-25 minuti, girandole a metà cottura.">Polpette leggere al sugo</span> con 130g Orzo perlato e spinaci saltati con aglio. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 170g Yogurt greco + 40g Gallette di riso/mais + Miele (se gradito).</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200 border-b-transparent dark:border-b-transparent hover:bg-purple-200/50 dark:hover:bg-purple-800/60">Giovedì</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🦐 Pranzo:</strong> 150g Riso integrale <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Riso saltato con Gamberetti e Zucchine" data-procedure="1. Cuoci 150g di riso integrale.|2. Pulisci 150g di gamberetti.|3. Taglia una zucchina a julienne o piccoli cubetti.|4. Salta 1 spicchio d'aglio in 1-2 cucchiaini (5-10ml) di olio EVO.|5. Aggiungi i gamberetti e cuoci per 2-3 minuti finché cambiano colore.|6. Aggiungi le zucchine, sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato.|7. Salta per un altro minuto, le zucchine devono rimanere croccanti.|8. Unisci il riso cotto e manteca bene.">saltato con 150g Gamberetti e zucchine.</span> Contorno di carote crude + 100g Formaggio spalmabile proteico. </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍊 Spuntino:</strong> 1 Pera + 170g Yogurt greco + 30g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🍗 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Pollo Arrosto con Rosmarino" data-procedure="1. Prendi 200g di pollo (cosce senza pelle o petto).|2. Condiscilo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 rametti di rosmarino tritato (e/o 1 spicchio d'aglio se gradito).|3. Disponilo su una teglia insieme a 300g di patate tagliate a spicchi e condite.|4. Cuoci in forno preriscaldato a 190-200°C per circa 30-45 minuti (a seconda della dimensione dei pezzi), finché il pollo è cotto e le patate sono tenere e dorate.">Pollo arrosto con rosmarino,</span> 300g Patate al forno, zucchine grigliate. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 150g Fiocchi di latte + 30g Frutta secca.</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-pink-100 text-pink-800 dark:bg-pink-900/50 dark:text-pink-200 border-b-transparent dark:border-b-transparent hover:bg-pink-200/50 dark:hover:bg-pink-800/60">Venerdì</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🍲 Pranzo:</strong> <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Pasta e Lenticchie" data-procedure="1. Prepara un soffritto con circa 30g sedano, 30g carota, 40g cipolla tritati e 1 cucchiaino (5ml) di olio.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate), i pomodori pelati (circa 150g) spezzettati e brodo vegetale fino a coprire.|3. Porta a cottura (o a bollore se lenticchie già cotte).|4. Butta 100g di pasta mista/ditalini direttamente nella pentola.|5. Cuoci insieme finché la pasta è cotta, aggiungendo brodo caldo q.b. per mantenere la zuppa cremosa. Regola di sale e pepe.">Pasta e Lenticchie (100g pasta mista/ditalini).</span> Servire con 50g Pane integrale. </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍊 Spuntino:</strong> 1 Banana + 170g Yogurt greco + 30g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🍳 Cena:</strong> <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Frittata al Forno Spinaci e Ricotta" data-procedure="1. Cuoci (lessa o salta in padella) circa 150-200g di spinaci freschi e strizzali bene.|2. Sbatti 3 uova intere con 100g albumi in una ciotola.|3. Aggiungi gli spinaci tritati grossolanamente, 50g ricotta, sale, pepe e un pizzico di noce moscata (facoltativa).|4. Mescola bene il composto.|5. Versa in una piccola teglia (diametro ~18-20cm) rivestita di carta forno.|6. Cuoci in forno preriscaldato a 180°C per circa 20-25 minuti o finché la frittata è gonfia, soda e leggermente dorata.">Frittata al forno con spinaci e 50g Ricotta.</span> Contorno di insalata mista e 100g Pane integrale. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine in polvere + 10g Burro d'arachidi.</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-200 border-b-transparent dark:border-b-transparent hover:bg-indigo-200/50 dark:hover:bg-indigo-800/60">Sabato</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🍕 Pranzo:</strong> Pizza Margherita o con verdure (fatta in casa o da asporto). </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍌 Spuntino:</strong> 1 Pera + 150g Fiocchi di latte + 30g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🍣 Cena:</strong> 180g <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Salmone Grigliato" data-procedure="1. Scalda bene una griglia o una padella antiaderente.|2. Condisci 180g di filetto di salmone con sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato (o aneto).|3. Cuoci sulla griglia calda per 3-5 minuti per lato (a seconda dello spessore e della cottura desiderata), iniziando dal lato della pelle se presente.">Salmone alla griglia,</span> 130g Riso Basmati, spinaci saltati con aglio e Olio EVO. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 170g Yogurt greco + 20g Frutta secca.</li> </ul> </div> </details>
-                 <details class="material-card bg-white dark:bg-gray-800"> <summary class="material-summary bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 border-b-transparent dark:border-b-transparent hover:bg-red-200/50 dark:hover:bg-red-800/60">Domenica</summary> <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 dark:text-gray-300"> <ul class="space-y-3"> <li class="meal-item bg-blue-50 dark:bg-blue-900/30 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li> <li class="meal-item bg-green-50 dark:bg-green-900/30 rounded-lg"> <strong>🍝 Pranzo:</strong> 150g Pasta integrale <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Ragù Leggero" data-procedure="1. Prepara un soffritto con 30g sedano, 30g carota, 40g cipolla tritati finemente e 1-2 cucchiaini (5-10ml) di olio EVO.|2. Aggiungi 150g di macinato magro (manzo o misto) e fallo rosolare bene sgranandolo.|3. Sfuma con 50ml di vino bianco o rosso (facoltativo) e lascia evaporare.|4. Aggiungi pomodori pelati (circa 300g) o passata, sale, pepe e una foglia d'alloro (facoltativo).|5. Copri e lascia sobbollire a fuoco basso per almeno 30-40 minuti, aggiungendo poca acqua calda o brodo q.b. se si asciuga troppo.">al ragù leggero.</span> Contorno di insalata. </li> <li class="meal-item bg-yellow-50 dark:bg-yellow-900/30 rounded-lg"><strong>🍐 Spuntino:</strong> 1 Mela + 100g Ricottine + 40g Gallette di riso/mais.</li> <li class="meal-item bg-red-50 dark:bg-red-900/30 rounded-lg"> <strong>🍗 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-title="Procedimento: Petto di Pollo Arrosto con Erbe" data-procedure="1. Prendi 200g di petto di pollo.|2. Condiscilo massaggiandolo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 cucchiai di erbe aromatiche tritate (rosmarino, salvia, timo...).|3. Disponilo su una teglia rivestita di carta forno insieme a 300g di patate e melanzane tagliate a pezzi e condite.|4. Cuoci in forno preriscaldato a 190°C per circa 25-30 minuti o finché il pollo è cotto internamente (non secco) e le verdure sono tenere e dorate.">Petto di pollo arrosto con erbe,</span> 300g Patate al forno, melanzane al forno. </li> <li class="meal-item bg-purple-50 dark:bg-purple-900/30 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine sciolte in 200ml acqua o Latte + 10g Burro d'arachidi.</li> </ul> </div> </details>
+                <details class="material-card bg-white" open>
+                    <summary class="material-summary bg-blue-100 text-blue-800 border-b-transparent hover:bg-blue-200/50">Lunedì</summary>
+                    <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte parzialmente scremato con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🍝 Pranzo:</strong> 150g Pasta integrale <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Pesto Leggero di Rucola" data-procedure="1. Metti nel mixer circa 30g di rucola.|2. Aggiungi 15g di frutta secca (noci o mandorle), 15g di Olio EVO, 1/2 spicchio d'aglio e 1 cucchiaino di succo di limone.|3. Aggiungi sale e pepe.|4. Frulla fino a ottenere una crema omogenea, aggiungendo 1-2 cucchiai d'acqua se necessario.">al pesto leggero di rucola</span> con 150g Petto di pollo grigliato. Contorno abbondante di pomodori e insalata mista. </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍎 Spuntino:</strong> 1 Mela + 170g Yogurt greco + 40g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🐟 Cena:</strong> 200g Orata (o Merluzzo) <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Cottura all'Acqua Pazza" data-procedure="1. Soffriggi 1 spicchio d'aglio in 1 cucchiaino (5ml) di Olio EVO in una padella capiente.|2. Aggiungi circa 70-80g di pomodorini tagliati a metà e 1 cucchiaio di prezzemolo tritato.|3. Versa circa 100-150ml d'acqua o brodo vegetale leggero e porta a leggero bollore.|4. Adagia i filetti di pesce (200g), regola di sale e pepe.|5. Copri e cuoci a fuoco basso per 10-15 minuti (a seconda dello spessore) finché il pesce è cotto e opaco.">all'acqua pazza</span>, 300g Patate lesse o al vapore, asparagi al vapore. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 150g Fiocchi di latte + 10g Burro d'arachidi + 30g Gallette di riso/mais.</li>
+                        </ul>
+                    </div>
+                </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-green-100 text-green-800 border-b-transparent hover:bg-green-200/50">Martedì</summary>
+                    <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🍚 Pranzo:</strong> 150g <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Riso e Lenticchie" data-procedure="1. Prepara un soffritto con circa 40g di cipolla tritata e 1 cucchiaino (5ml) di olio EVO.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate se in scatola).|3. Aggiungi 150g di riso Basmati e tostalo leggermente per un minuto.|4. Copri con brodo vegetale caldo (circa 350-400ml).|5. Porta a cottura (circa 15-18 min) mescolando di tanto in tanto e aggiungendo altro brodo caldo se necessario.|6. Aggiusta di sale e aggiungi 1 rametto di rosmarino tritato a fine cottura.">Riso e Lenticchie.</span> Contorno di carote crude + 100g Ricottine. </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🥜 Spuntino:</strong> 1 Pera + 30g Frutta secca + 40g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🦃 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Petto di tacchino saltato con funghi" data-procedure="1. Taglia 200g di petto di tacchino a striscioline o cubetti.|2. Affetta circa 80g di cipolla e 150g di funghi champignon.|3. Scalda 1-2 cucchiaini (5-10ml) di olio in una padella antiaderente e fai appassire la cipolla.|4. Aggiungi i funghi e cuoci finché l'acqua di vegetazione è evaporata.|5. Alza la fiamma, aggiungi il tacchino, sale, pepe.|6. Cuoci a fuoco vivace per 5-7 minuti, finché il tacchino è dorato e cotto internamente.">Petto di tacchino saltato con funghi</span> e cipolla, 130g Farro perlato, insalata mista. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine in polvere sciolte in 200ml acqua o Latte + 20g Frutta secca.</li>
+                        </ul>
+                    </div>
+                 </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-yellow-100 text-yellow-800 border-b-transparent hover:bg-yellow-200/50">Mercoledì</summary>
+                     <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🐔 Pranzo:</strong> 180g Petto di pollo <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Cottura alla Pizzaiola" data-procedure="1. Infarina leggermente (facoltativo) 180g di petto di pollo.|2. Rosola 1 spicchio d'aglio in 1 cucchiaino (5ml) di olio EVO.|3. Aggiungi il pollo e fallo dorare su entrambi i lati.|4. Aggiungi pomodori pelati spezzettati (circa 200g), 1 cucchiaino di origano secco, 1 cucchiaino di capperi dissalati (se usati), sale e pepe.|5. Copri e cuoci a fuoco basso per circa 15-20 minuti, finché il pollo è tenero e il sugo si è addensato.">alla pizzaiola.</span> Accompagnare con 100g Pane integrale e verdure grigliate (melanzane/zucchine). </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍓 Spuntino:</strong> 1 Banana + 100g Ricottine con Cacao amaro.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🥩 Cena:</strong> <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Polpette Leggere al Sugo" data-procedure="1. Impasta 180g di macinato magro con 15g di pane grattugiato, 30g di albume, 1 cucchiaio di prezzemolo tritato, sale e pepe.|2. Forma delle polpette non troppo grandi.|3. Prepara un sugo semplice soffriggendo 40g di cipolla tritata (o aglio) in 1 cucchiaino (5ml) di olio, aggiungendo pomodori pelati (circa 250g) e sale.|4. Adagia delicatamente le polpette nel sugo caldo.|5. Copri e cuoci a fuoco basso per almeno 20-25 minuti, girandole a metà cottura.">Polpette leggere al sugo</span> con 130g Orzo perlato e spinaci saltati con aglio. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 170g Yogurt greco + 40g Gallette di riso/mais + Miele (se gradito).</li>
+                        </ul>
+                    </div>
+                 </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-purple-100 text-purple-800 border-b-transparent hover:bg-purple-200/50">Giovedì</summary>
+                     <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🦐 Pranzo:</strong> 150g Riso integrale <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Riso saltato con Gamberetti e Zucchine" data-procedure="1. Cuoci 150g di riso integrale.|2. Pulisci 150g di gamberetti.|3. Taglia una zucchina a julienne o piccoli cubetti.|4. Salta 1 spicchio d'aglio in 1-2 cucchiaini (5-10ml) di olio EVO.|5. Aggiungi i gamberetti e cuoci per 2-3 minuti finché cambiano colore.|6. Aggiungi le zucchine, sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato.|7. Salta per un altro minuto, le zucchine devono rimanere croccanti.|8. Unisci il riso cotto e manteca bene.">saltato con 150g Gamberetti e zucchine.</span> Contorno di carote crude + 100g Formaggio spalmabile proteico. </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍊 Spuntino:</strong> 1 Pera + 170g Yogurt greco + 30g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🍗 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Pollo Arrosto con Rosmarino" data-procedure="1. Prendi 200g di pollo (cosce senza pelle o petto).|2. Condiscilo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 rametti di rosmarino tritato (e/o 1 spicchio d'aglio se gradito).|3. Disponilo su una teglia insieme a 300g di patate tagliate a spicchi e condite.|4. Cuoci in forno preriscaldato a 190-200°C per circa 30-45 minuti (a seconda della dimensione dei pezzi), finché il pollo è cotto e le patate sono tenere e dorate.">Pollo arrosto con rosmarino,</span> 300g Patate al forno, zucchine grigliate. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 150g Fiocchi di latte + 30g Frutta secca.</li>
+                        </ul>
+                    </div>
+                 </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-pink-100 text-pink-800 border-b-transparent hover:bg-pink-200/50">Venerdì</summary>
+                     <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🍲 Pranzo:</strong> <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Pasta e Lenticchie" data-procedure="1. Prepara un soffritto con circa 30g sedano, 30g carota, 40g cipolla tritati e 1 cucchiaino (5ml) di olio.|2. Aggiungi 150g di lenticchie (già cotte o sciacquate), i pomodori pelati (circa 150g) spezzettati e brodo vegetale fino a coprire.|3. Porta a cottura (o a bollore se lenticchie già cotte).|4. Butta 100g di pasta mista/ditalini direttamente nella pentola.|5. Cuoci insieme finché la pasta è cotta, aggiungendo brodo caldo q.b. per mantenere la zuppa cremosa. Regola di sale e pepe.">Pasta e Lenticchie (100g pasta mista/ditalini).</span> Servire con 50g Pane integrale. </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍊 Spuntino:</strong> 1 Banana + 170g Yogurt greco + 30g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🍳 Cena:</strong> <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Frittata al Forno Spinaci e Ricotta" data-procedure="1. Cuoci (lessa o salta in padella) circa 150-200g di spinaci freschi e strizzali bene.|2. Sbatti 3 uova intere con 100g albumi in una ciotola.|3. Aggiungi gli spinaci tritati grossolanamente, 50g ricotta, sale, pepe e un pizzico di noce moscata (facoltativa).|4. Mescola bene il composto.|5. Versa in una piccola teglia (diametro ~18-20cm) rivestita di carta forno.|6. Cuoci in forno preriscaldato a 180°C per circa 20-25 minuti o finché la frittata è gonfia, soda e leggermente dorata.">Frittata al forno con spinaci e 50g Ricotta.</span> Contorno di insalata mista e 100g Pane integrale. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine in polvere + 10g Burro d'arachidi.</li>
+                        </ul>
+                    </div>
+                 </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-indigo-100 text-indigo-800 border-b-transparent hover:bg-indigo-200/50">Sabato</summary>
+                     <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🍕 Pranzo:</strong> Pizza Margherita o con verdure (fatta in casa o da asporto). </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍌 Spuntino:</strong> 1 Pera + 150g Fiocchi di latte + 30g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🍣 Cena:</strong> 180g <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Salmone Grigliato" data-procedure="1. Scalda bene una griglia o una padella antiaderente.|2. Condisci 180g di filetto di salmone con sale, pepe, succo di limone e 1 cucchiaio di prezzemolo tritato (o aneto).|3. Cuoci sulla griglia calda per 3-5 minuti per lato (a seconda dello spessore e della cottura desiderata), iniziando dal lato della pelle se presente.">Salmone alla griglia,</span> 130g Riso Basmati, spinaci saltati con aglio e Olio EVO. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 170g Yogurt greco + 20g Frutta secca.</li>
+                        </ul>
+                    </div>
+                 </details>
+                <details class="material-card bg-white">
+                    <summary class="material-summary bg-red-100 text-red-800 border-b-transparent hover:bg-red-200/50">Domenica</summary>
+                     <div class="p-3 sm:p-4 text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="meal-item bg-blue-50 rounded-lg"><strong>🥛 Colazione:</strong> 300ml Latte p.s. con 90g Biscotti secchi/ai cereali.</li>
+                            <li class="meal-item bg-green-50 rounded-lg"> <strong>🍝 Pranzo:</strong> 150g Pasta integrale <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Ragù Leggero" data-procedure="1. Prepara un soffritto con 30g sedano, 30g carota, 40g cipolla tritati finemente e 1-2 cucchiaini (5-10ml) di olio EVO.|2. Aggiungi 150g di macinato magro (manzo o misto) e fallo rosolare bene sgranandolo.|3. Sfuma con 50ml di vino bianco o rosso (facoltativo) e lascia evaporare.|4. Aggiungi pomodori pelati (circa 300g) o passata, sale, pepe e una foglia d'alloro (facoltativo).|5. Copri e lascia sobbollire a fuoco basso per almeno 30-40 minuti, aggiungendo poca acqua calda o brodo q.b. se si asciuga troppo.">al ragù leggero.</span> Contorno di insalata. </li>
+                            <li class="meal-item bg-yellow-50 rounded-lg"><strong>🍐 Spuntino:</strong> 1 Mela + 100g Ricottine + 40g Gallette di riso/mais.</li>
+                            <li class="meal-item bg-red-50 rounded-lg"> <strong>🍗 Cena:</strong> 200g <span class="recipe-trigger text-blue-600 hover:text-blue-800" data-title="Procedimento: Petto di Pollo Arrosto con Erbe" data-procedure="1. Prendi 200g di petto di pollo.|2. Condiscilo massaggiandolo con 1-2 cucchiaini (5-10ml) di Olio EVO, sale, pepe e 1-2 cucchiai di erbe aromatiche tritate (rosmarino, salvia, timo...).|3. Disponilo su una teglia rivestita di carta forno insieme a 300g di patate e melanzane tagliate a pezzi e condite.|4. Cuoci in forno preriscaldato a 190°C per circa 25-30 minuti o finché il pollo è cotto internamente (non secco) e le verdure sono tenere e dorate.">Petto di pollo arrosto con erbe,</span> 300g Patate al forno, melanzane al forno. </li>
+                            <li class="meal-item bg-purple-50 rounded-lg"><strong>🌙 Spuntino pre nanna:</strong> 1 misurino (30g) Proteine sciolte in 200ml acqua o Latte + 10g Burro d'arachidi.</li>
+                        </ul>
+                    </div>
+                 </details>
             </section>
         </div>
 
         <div id="lista-spesa-view" class="hidden-view">
             <section id="lista-spesa">
-                 <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 flex items-center">
-                     <svg class="lucide lucide-list-checks mr-2 text-teal-600 dark:text-teal-400 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-1a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2.5"/><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="m3 10 2 2 4-4"/><path d="m3 17 2 2 4-4"/></svg>
+                 <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-6 flex items-center">
+                     <svg class="lucide lucide-list-checks mr-2 text-teal-600 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-1a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2.5"/><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="m3 10 2 2 4-4"/><path d="m3 17 2 2 4-4"/></svg>
                      Lista della Spesa Settimanale
                  </h2>
-                 <p class="mb-6 text-sm text-gray-600 dark:text-gray-400"><strong>Nota:</strong> Clicca sulla casella o sul testo per segnare gli articoli come comprati. Espandi le categorie per vedere gli articoli.</p>
+                 <p class="mb-6 text-sm text-gray-600"><strong>Nota:</strong> Clicca sulla casella o sul testo per segnare gli articoli come comprati. Espandi le categorie per vedere gli articoli.</p>
 
-                 <details class="material-card bg-white dark:bg-gray-800">
-                     <summary class="material-summary bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200 border-b-transparent dark:border-b-transparent hover:bg-green-200/50 dark:hover:bg-green-800/60">
+                 <details class="material-card bg-white">
+                     <summary class="material-summary bg-green-100 text-green-800 border-b-transparent hover:bg-green-200/50">
                          <span class="flex items-center">
-                            <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.27 21.7s9.8-3.5 12.7-12.7C17.5 6.4 18.5 3.5 18.5 3.5c1.5-1.5 3.1-.5 4.1 1 .9 1.5 0 3.1-1.5 4.1 0 0-2.9 1-5.5 3.6-9.2 2.9-12.7 12.7-12.7 12.7Z"/><path d="M18.5 3.5s-4.6 4.6-8.8 8.8"/><path d="M14 10c-2 2-4.5 3.5-4.5 3.5s1.5-2.5 3.5-4.5c2-2 4.5-3.5 4.5-3.5s-1.5 2.5-3.5 4.5Z"/><path d="M22 9s-1.33 1.33-4 4"/></svg>
+                            <svg class="category-icon text-green-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17.5 3c-1.8 0-3.78 1.16-5.5 3.44C10.28 4.16 8.3 3 6.5 3A4.91 4.91 0 0 0 2 7.78c0 4.22 3 12.22 6 12.22 1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
                             Frutta e Verdura
                          </span>
                      </summary>
-                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1">
-                             <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item1" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item1" class="shopping-item-text">Mele (2)</label></li>
-                             <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item19" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item19" class="shopping-item-text">Rosmarino fresco (facoltativo)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item1" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item1" class="shopping-item-text">Mele (2)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item2" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item2" class="shopping-item-text">Pere (2-3)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item3" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item3" class="shopping-item-text">Banane (2)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item4" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item4" class="shopping-item-text">Limoni (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item5" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item5" class="shopping-item-text">Rucola (1 busta)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item6" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item6" class="shopping-item-text">Pomodori (~500g + pomodorini)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item7" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item7" class="shopping-item-text">Zucchine (3-4)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item8" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item8" class="shopping-item-text">Asparagi (1 mazzo)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item9" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item9" class="shopping-item-text">Spinaci freschi (2-3 buste)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item10" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item10" class="shopping-item-text">Carote (1 mazzo/busta)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item11" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item11" class="shopping-item-text">Sedano (1 costa)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item12" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item12" class="shopping-item-text">Insalata mista (1-2 buste)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item13" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item13" class="shopping-item-text">Patate (~1.5 kg)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item14" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item14" class="shopping-item-text">Melanzane (2-3)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item15" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item15" class="shopping-item-text">Aglio (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item16" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item16" class="shopping-item-text">Cipolle (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item17" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item17" class="shopping-item-text">Funghi champignon (~150g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item18" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item18" class="shopping-item-text">Prezzemolo fresco (1 mazzetto)</label></li>
+                             <li class="shopping-list-item hover:bg-gray-50"><input type="checkbox" id="sl-item19" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item19" class="shopping-item-text">Rosmarino fresco (facoltativo)</label></li>
                          </ul>
                      </div>
                  </details>
-                 <details class="material-card bg-white dark:bg-gray-800">
-                     <summary class="material-summary bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200 border-b-transparent dark:border-b-transparent hover:bg-red-200/50 dark:hover:bg-red-800/60">
+                 <details class="material-card bg-white">
+                     <summary class="material-summary bg-red-100 text-red-800 border-b-transparent hover:bg-red-200/50">
                          <span class="flex items-center">
-                             <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.44 15.44a1 1 0 0 0 1.41 0L22 10.3V6.7a1 1 0 0 0-.5-.87l-5.17-3a1 1 0 0 0-1 0l-5.17 3a1 1 0 0 0-.5.87v3.6Z"/><path d="M15.44 15.44a1 1 0 0 1-1.41 0L9 10.36V8.5a1 1 0 0 1 .55-.9l3.17-1.8a1 1 0 0 1 1.1 0l3.18 1.8a1 1 0 0 1 .55.9v1.86Z"/><path d="M12.94 12.94a1 1 0 0 0-1.41 1.41l3.17 3.17a5 5 0 1 0 7.08-7.08l-3.17-3.17a1 1 0 0 0-1.41 1.41l.7.7-.7.7-.7-.7-.7.7-.7-.7-.7.7Z"/><path d="M11 11 2.5 2.5"/><path d="m16.5 6.5-11 11"/></svg>
+                             <svg class="category-icon text-red-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.2 7.2a5.1 5.1 0 0 1 0 7.2 5.1 5.1 0 0 1-7.2 0 5.1 5.1 0 0 1 0-7.2 5.1 5.1 0 0 1 7.2 0Z"/><path d="M19.4 4.6a8.4 8.4 0 0 0-12 12l-3 3L7 22l3-3a8.4 8.4 0 0 0 12-12 8.4 8.4 0 0 0-2.6-5.4Z"/></svg>
                              Proteine
                          </span>
                      </summary>
-                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1">
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item20" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item20" class="shopping-item-text">Petto di pollo (~730g)</label></li>
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item27" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item27" class="shopping-item-text">Uova (3 + albumi)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item20" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item20" class="shopping-item-text">Petto di pollo (~730g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item21" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item21" class="shopping-item-text">Cosce di pollo (~200g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item22" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item22" class="shopping-item-text">Petto di tacchino (~200g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item23" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item23" class="shopping-item-text">Macinato magro Manzo/Misto (~330g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item24" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item24" class="shopping-item-text">Salmone (~180g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item25" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item25" class="shopping-item-text">Orata/Merluzzo/Pesce bianco (~200g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item26" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item26" class="shopping-item-text">Gamberetti (~150g)</label></li>
+                              <li class="shopping-list-item hover:bg-gray-50"><input type="checkbox" id="sl-item27" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item27" class="shopping-item-text">Uova (3 + albumi)</label></li>
                          </ul>
                      </div>
                  </details>
-                 <details class="material-card bg-white dark:bg-gray-800">
-                     <summary class="material-summary bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200 border-b-transparent dark:border-b-transparent hover:bg-blue-200/50 dark:hover:bg-blue-800/60">
+                 <details class="material-card bg-white">
+                     <summary class="material-summary bg-blue-100 text-blue-800 border-b-transparent hover:bg-blue-200/50">
                           <span class="flex items-center">
-                              <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><path d="M9.5 2v2.5a1.5 1.5 0 0 1-3 0V2"/><path d="M17.5 2v2.5a1.5 1.5 0 0 1-3 0V2"/><path d="M8 8v9a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8H8Z"/><path d="M8 5h8v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1Z"/></svg>
+                              <svg class="category-icon text-blue-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><path d="M9.5 2v2.5a1.5 1.5 0 0 1-3 0V2"/><path d="M17.5 2v2.5a1.5 1.5 0 0 1-3 0V2"/><path d="M8 8v9a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8H8Z"/><path d="M8 5h8v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1Z"/></svg>
                               Latticini & Frigo
                           </span>
                      </summary>
-                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1">
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item28" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item28" class="shopping-item-text">Latte p.s. (~2L)</label></li>
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item33" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item33" class="shopping-item-text">Ricotta fresca (~50g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item28" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item28" class="shopping-item-text">Latte p.s. (~2L)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item29" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item29" class="shopping-item-text">Yogurt greco 0% (~5 vasetti)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item30" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item30" class="shopping-item-text">Ricottine (~3 vasetti)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item31" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item31" class="shopping-item-text">Fiocchi di latte (~2 vasetti)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item32" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item32" class="shopping-item-text">Formaggio spalmabile prot. (1)</label></li>
+                              <li class="shopping-list-item hover:bg-gray-50"><input type="checkbox" id="sl-item33" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item33" class="shopping-item-text">Ricotta fresca (~50g)</label></li>
                          </ul>
                      </div>
                  </details>
-                 <details class="material-card bg-white dark:bg-gray-800">
-                     <summary class="material-summary bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200 border-b-transparent dark:border-b-transparent hover:bg-yellow-200/50 dark:hover:bg-yellow-800/60">
+                 <details class="material-card bg-white">
+                     <summary class="material-summary bg-yellow-100 text-yellow-800 border-b-transparent hover:bg-yellow-200/50">
                           <span class="flex items-center">
-                              <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.165 18.831a4 4 0 0 0 6.7 1.331 1 1 0 0 0-1.768-1.062 2 2 0 0 1-3.382-.653 4 4 0 0 0-3.061-3.06 2 2 0 0 1-.653-3.383A1 1 0 0 0 6.94 10.24a4 4 0 0 0 1.33-6.705 1 1 0 1 0-1.06-1.768A6 6 0 0 0 1.8 12.93a6 6 0 0 0 8.365 5.9z"/><path d="M19.571 4.429a1 1 0 0 0-1.061 1.768 4 4 0 0 1 3.06 3.06 2 2 0 0 0 .652 3.382 1 1 0 0 1 1.06 1.768 4 4 0 0 1-1.33 6.706 1 1 0 0 1 1.768 1.06 6 6 0 0 0 5.9-8.364 6 6 0 0 0-10.05-10.05z"/></svg>
+                              <svg class="category-icon text-yellow-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.08 11.36a4.5 4.5 0 1 0-8.44 4.54"/><path d="M12 12c0 2.04 1.1 3.87 2.75 4.91"/><path d="M4.4 14.4a4.5 4.5 0 1 0 8.44-4.54"/><path d="M12 12c0-2.04-1.1-3.87-2.75-4.91"/></svg>
                               Legumi & Conservati
                           </span>
                      </summary>
-                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1">
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item34" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item34" class="shopping-item-text">Lenticchie secche/in scatola (~300g)</label></li>
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item35" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item35" class="shopping-item-text">Pomodori pelati/passata (~1kg)</label></li>
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item36" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item36" class="shopping-item-text">Capperi (vasetto piccolo, fac.)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item34" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item34" class="shopping-item-text">Lenticchie secche/in scatola (~300g)</label></li>
+                              <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item35" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item35" class="shopping-item-text">Pomodori pelati/passata (~1kg)</label></li>
+                              <li class="shopping-list-item hover:bg-gray-50"><input type="checkbox" id="sl-item36" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item36" class="shopping-item-text">Capperi (vasetto piccolo, fac.)</label></li>
                          </ul>
                      </div>
                  </details>
-                 <details class="material-card bg-white dark:bg-gray-800">
-                     <summary class="material-summary bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-200 border-b-transparent dark:border-b-transparent hover:bg-gray-200/50 dark:hover:bg-gray-600/60">
+                 <details class="material-card bg-white">
+                     <summary class="material-summary bg-gray-100 text-gray-800 border-b-transparent hover:bg-gray-200/50">
                           <span class="flex items-center">
-                              <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                              <svg class="category-icon text-gray-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
                               Dispensa
                           </span>
                      </summary>
-                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1">
-                             <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item37" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item37" class="shopping-item-text">Biscotti secchi/cereali (~630g)</label></li>
-                              <li class="shopping-list-item border-b border-gray-100 dark:border-gray-700"><input type="checkbox" id="sl-item51" class="shopping-item-checkbox border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700"><label for="sl-item51" class="shopping-item-text">Sale, Pepe, Spezie varie (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item37" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item37" class="shopping-item-text">Biscotti secchi/cereali (~630g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item38" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item38" class="shopping-item-text">Pasta integrale (~300g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item39" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item39" class="shopping-item-text">Pasta mista/Ditalini (~100g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item40" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item40" class="shopping-item-text">Pane integrale (~250g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item41" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item41" class="shopping-item-text">Gallette di Riso/Mais (~2 pacchi)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item42" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item42" class="shopping-item-text">Olio Extra Vergine d'Oliva (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item43" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item43" class="shopping-item-text">Proteine in polvere (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item44" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item44" class="shopping-item-text">Burro d'arachidi (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item45" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item45" class="shopping-item-text">Frutta secca (noci/mandorle) (~100g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item46" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item46" class="shopping-item-text">Pane grattugiato (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item47" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item47" class="shopping-item-text">Riso Basmati/Integrale (~430g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item48" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item48" class="shopping-item-text">Farro/Orzo perlato (~130g + ~130g)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item49" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item49" class="shopping-item-text">Cacao amaro (q.b.)</label></li>
+                             <li class="shopping-list-item border-b border-gray-100 hover:bg-gray-50"><input type="checkbox" id="sl-item50" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item50" class="shopping-item-text">Origano (q.b.)</label></li>
+                              <li class="shopping-list-item hover:bg-gray-50"><input type="checkbox" id="sl-item51" class="shopping-item-checkbox border-gray-300 bg-white accent-indigo-600"><label for="sl-item51" class="shopping-item-text">Sale, Pepe, Spezie varie (q.b.)</label></li>
                          </ul>
                      </div>
                  </details>
-
-                 <p class="mt-8 text-xs text-gray-500 dark:text-gray-400 italic"><strong>Disclaimer:</strong> Questo è un piano esemplificativo. Adatta le quantità alle tue esigenze e consulta un professionista della nutrizione.</p>
+                 <p class="mt-8 text-xs text-gray-500 italic"><strong>Disclaimer:</strong> Questo è un piano esemplificativo. Adatta le quantità alle tue esigenze e consulta un professionista della nutrizione.</p>
             </section>
         </div>
 
         <div id="settings-view" class="hidden-view">
              <section id="impostazioni">
-                 <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6 flex items-center">
-                     <svg class="lucide lucide-settings mr-2 text-gray-600 dark:text-gray-400 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                 <h2 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-6 flex items-center">
+                     <svg class="lucide lucide-settings mr-2 text-gray-600 h-6 w-6 sm:h-7 sm:w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                      Impostazioni
                  </h2>
-                 <div class="material-card bg-white dark:bg-gray-800 p-4 sm:p-6">
-                     <h3 class="text-lg font-medium text-gray-800 dark:text-gray-100 mb-4">Aspetto</h3>
-                     <div class="theme-switch-wrapper">
-                         <span class="text-sm text-gray-600 dark:text-gray-400 mr-4">Tema Scuro</span>
-                         <label class="theme-switch" for="theme-toggle">
-                             <input type="checkbox" id="theme-toggle">
-                             <div class="slider"></div>
-                         </label>
-                     </div>
+                 <div class="material-card bg-white p-4 sm:p-6">
+                     <p class="text-gray-600">Al momento non ci sono impostazioni disponibili.</p>
                      </div>
              </section>
         </div>
 
     </div>
 
-    <div id="procedureModal" class="hidden">
-        <div id="modalContentDiv" class="modal-content relative bg-white dark:bg-gray-800">
-            <button id="closeModalBtn" class="modal-close-btn text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-100" aria-label="Chiudi modale">
+    <div id="procedureModal" class="hidden bg-black/60">
+        <div id="modalContentDiv" class="modal-content relative">
+            <button id="closeModalBtn" class="modal-close-btn hover:bg-black/10" aria-label="Chiudi modale">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
-            <h3 id="modalTitle" class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Procedimento</h3>
-            <div id="modalProcedureText" class="text-sm text-gray-700 dark:text-gray-300"></div>
+            <h3 id="modalTitle" class="text-lg font-semibold mb-4">Procedimento</h3>
+            <div id="modalProcedureText" class="text-sm"></div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Elementi DOM
+            // --- Selezione Elementi DOM ---
             const menuBtn = document.getElementById('menuBtn');
             const sideNav = document.getElementById('sideNav');
             const navOverlay = document.getElementById('navOverlay');
@@ -320,7 +379,7 @@
             const body = document.body;
             const menuView = document.getElementById('menu-view');
             const listaSpesaView = document.getElementById('lista-spesa-view');
-            const settingsView = document.getElementById('settings-view'); // Nuova vista
+            const settingsView = document.getElementById('settings-view');
             const procedureModal = document.getElementById('procedureModal');
             const modalContentDiv = document.getElementById('modalContentDiv');
             const modalTitle = document.getElementById('modalTitle');
@@ -328,120 +387,183 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const recipeTriggers = document.querySelectorAll('.recipe-trigger');
             const shoppingListItems = listaSpesaView.querySelectorAll('.shopping-list-item');
-            const themeToggle = document.getElementById('theme-toggle'); // Toggle del tema
 
-            // --- Theme Management ---
-            const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            let currentTheme = localStorage.getItem('theme');
+            // --- Gestione Tema Rimossa ---
 
-            // Se non c'è preferenza salvata, usa quella del sistema
-            if (!currentTheme) {
-                currentTheme = userPrefersDark ? 'dark' : 'light';
-            }
-
-            // Applica il tema all'avvio
-            if (currentTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-                if (themeToggle) themeToggle.checked = true;
-            } else {
-                document.documentElement.classList.remove('dark');
-                 if (themeToggle) themeToggle.checked = false;
-            }
-
-            // Listener per il toggle del tema
-            if (themeToggle) {
-                themeToggle.addEventListener('change', () => {
-                    if (themeToggle.checked) {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    }
-                });
-            }
-
-            // Stato iniziale delle viste
+            // --- Gestione Viste ---
             const allViews = [menuView, listaSpesaView, settingsView];
             function showView(viewToShow) {
                 allViews.forEach(view => {
-                    if (view) { // Controlla se la vista esiste
-                        view.classList.add('hidden-view');
-                    }
+                    if (view) view.classList.add('hidden-view');
                 });
                 if (viewToShow) {
                     viewToShow.classList.remove('hidden-view');
+                    console.log(`Showing view: ${viewToShow.id}`);
+                } else {
+                    console.warn(`Target view element not found!`);
                 }
             }
-            showView(menuView); // Mostra il menu all'inizio
+            showView(menuView);
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.querySelector('#sideNav a[data-target="menu-view"]')?.classList.add('active');
 
-            // --- Shopping List Logic (Invariata) ---
+
+            // --- Logica Lista della Spesa ---
             shoppingListItems.forEach(item => {
                 const checkbox = item.querySelector('.shopping-item-checkbox');
                 const label = item.querySelector('.shopping-item-text');
-                if (!checkbox || !label) return; // Salta se mancano elementi
+                if (!checkbox || !label || !checkbox.id) return;
 
                 const itemId = checkbox.id;
-                if (!itemId) return; // Salta se manca ID
+
+                const updateLabelStyle = (isChecked) => {
+                    label.classList.toggle('line-through', isChecked);
+                    label.classList.remove('text-gray-400', 'text-gray-700');
+                    label.classList.add(isChecked ? 'text-gray-400' : 'text-gray-700');
+                    label.classList.toggle('text-decoration-gray-400', isChecked);
+                    checkbox.classList.remove('border-gray-300');
+                    checkbox.classList.add('border-gray-300');
+                };
 
                 try {
                     const isChecked = localStorage.getItem(itemId) === 'true';
                     checkbox.checked = isChecked;
-                    label.classList.toggle('line-through', isChecked);
-                    label.classList.toggle('text-gray-400', isChecked); // Usa classi specifiche se necessario
-                    label.classList.toggle('dark:text-gray-500', isChecked);
-                    label.classList.toggle('text-gray-700', !isChecked);
-                    label.classList.toggle('dark:text-gray-300', !isChecked);
+                    updateLabelStyle(isChecked);
                 } catch (e) { console.error("Failed to access localStorage:", e); }
 
                 const toggleCheck = () => {
                     const isCheckedNow = checkbox.checked;
-                    label.classList.toggle('line-through', isCheckedNow);
-                    label.classList.toggle('text-gray-400', isCheckedNow);
-                    label.classList.toggle('dark:text-gray-500', isCheckedNow);
-                    label.classList.toggle('text-gray-700', !isCheckedNow);
-                    label.classList.toggle('dark:text-gray-300', !isCheckedNow);
+                    updateLabelStyle(isCheckedNow);
                      try { localStorage.setItem(itemId, isCheckedNow); }
                      catch (e) { console.error("Failed to write to localStorage:", e); }
                 };
 
                 checkbox.addEventListener('change', toggleCheck);
-                label.addEventListener('click', () => {
+                label.addEventListener('click', (e) => {
+                    e.preventDefault();
                     checkbox.checked = !checkbox.checked;
                     checkbox.dispatchEvent(new Event('change'));
                 });
             });
 
-            // --- Navigation Drawer Logic (Invariata) ---
+            // --- Logica Navigazione Laterale ---
             function openNav() { sideNav.classList.add('open'); navOverlay.classList.add('active'); body.style.overflow = 'hidden'; }
             function closeNav() { sideNav.classList.remove('open'); navOverlay.classList.remove('active'); body.style.overflow = ''; }
             menuBtn.addEventListener('click', (e) => { e.stopPropagation(); openNav(); });
             navOverlay.addEventListener('click', closeNav);
 
-            // --- View Switching Logic (Aggiornata per includere settings) ---
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const targetViewId = link.dataset.target;
                     const targetView = document.getElementById(targetViewId);
-
-                    showView(targetView); // Usa la funzione helper
-
-                    // Aggiorna link attivo
+                    showView(targetView);
                     navLinks.forEach(navLink => navLink.classList.remove('active'));
                     link.classList.add('active');
-
                     closeNav();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
 
-            // --- Modal Logic (Invariata) ---
-            function getMealBgClass(element) { const parentLi = element.closest('.meal-item'); if (!parentLi) return 'bg-white dark:bg-gray-800'; const bgClass = Array.from(parentLi.classList).find(cls => cls.startsWith('bg-') && cls.endsWith('-50')); if (bgClass) { const baseColor = bgClass.split('-')[1]; return `bg-${baseColor}-100 dark:bg-${baseColor}-900/50`; } return 'bg-gray-100 dark:bg-gray-700'; } // Adattato per dark
-            function removeBgClasses(element) { const classesToRemove = Array.from(element.classList).filter(cls => cls.startsWith('bg-')); element.classList.remove(...classesToRemove); } // Invariata
-            function openModal(title, procedure, bgColorClass) { modalTitle.textContent = title || 'Procedimento'; const steps = procedure ? procedure.split('|') : []; let procedureHtml = '<p class="text-gray-500 dark:text-gray-400">Procedimento non specificato.</p>'; if (steps.length > 0 && steps[0].trim() !== '') { procedureHtml = '<ol>'; steps.forEach(step => { procedureHtml += `<li>${step.trim()}</li>`; }); procedureHtml += '</ol>'; } modalProcedureText.innerHTML = procedureHtml; removeBgClasses(modalContentDiv); modalContentDiv.classList.add(...bgColorClass.split(' ')); procedureModal.classList.remove('hidden'); void procedureModal.offsetWidth; procedureModal.classList.add('active'); body.style.overflow = 'hidden'; } // Adattato per dark
-            function closeModal() { procedureModal.classList.remove('active'); setTimeout(() => { procedureModal.classList.add('hidden'); body.style.overflow = ''; removeBgClasses(modalContentDiv); modalContentDiv.classList.add('bg-white', 'dark:bg-gray-800'); }, 200); } // Adattato per dark
-            recipeTriggers.forEach(trigger => { trigger.addEventListener('click', function(event) { event.preventDefault(); const title = this.dataset.title; const procedure = this.dataset.procedure; const bgColorClass = getMealBgClass(this); openModal(title, procedure, bgColorClass); }); });
+            // --- Logica Modale Ricette (Colori Aggiornati) ---
+            function getModalStyling(triggerElement) {
+                const dayCard = triggerElement.closest('.material-card');
+                const daySummary = dayCard ? dayCard.querySelector('.material-summary') : null;
+                let bgColorClass = 'bg-white'; // Default
+                let textColorClass = 'text-gray-800'; // Default
+                let closeBtnColorClass = 'text-gray-500 hover:text-gray-800 hover:bg-black/10'; // Default
+                let markerColorClass = 'marker:text-gray-500'; // Default
+
+                if (daySummary) {
+                    const bgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('bg-') && cls.endsWith('-100'));
+                    const textMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('text-') && cls.endsWith('-800'));
+
+                    if (bgMatch) {
+                        bgColorClass = bgMatch; // Usa colore sfondo summary (es. bg-blue-100)
+                    }
+                    if (textMatch) {
+                        textColorClass = textMatch; // Usa colore testo summary (es. text-blue-800)
+                        const baseColor = textMatch.split('-')[1];
+                        // Adatta colore bottone e marker per contrasto con sfondo -100
+                        // Usiamo tonalità più scure (-700, -900) per il testo/icone su sfondo -100
+                        closeBtnColorClass = `text-${baseColor}-700 hover:text-${baseColor}-900 hover:bg-${baseColor}-200/50`;
+                        markerColorClass = `marker:text-${baseColor}-700`;
+                    }
+                }
+                return { bgColorClass, textColorClass, closeBtnColorClass, markerColorClass };
+            }
+
+            function removeColorClasses(element, prefix) {
+                 const classesToRemove = Array.from(element.classList).filter(cls => cls.startsWith(prefix + '-'));
+                 element.classList.remove(...classesToRemove);
+            }
+             function removeBgClasses(element) { removeColorClasses(element, 'bg'); }
+             function removeTextClasses(element) { removeColorClasses(element, 'text'); removeColorClasses(element, 'marker:text'); }
+             function removeHoverClasses(element) { const classesToRemove = Array.from(element.classList).filter(cls => cls.startsWith('hover:')); element.classList.remove(...classesToRemove); }
+
+            function openModal(title, procedure, styles) {
+                modalTitle.textContent = title || 'Procedimento';
+                const steps = procedure ? procedure.split('|') : [];
+                let procedureHtml = `<p class="${styles.textColorClass}">Procedimento non specificato.</p>`;
+                if (steps.length > 0 && steps[0].trim() !== '') {
+                    procedureHtml = `<ol class="${styles.textColorClass}">`; // Applica colore testo a ol
+                    steps.forEach(step => {
+                        procedureHtml += `<li class="${styles.markerColorClass}">${step.trim()}</li>`; // Applica colore marker
+                    });
+                    procedureHtml += '</ol>';
+                }
+                modalProcedureText.innerHTML = procedureHtml;
+
+                // Applica stili
+                removeBgClasses(modalContentDiv);
+                removeTextClasses(modalTitle);
+                // Rimuovi classi colore dal contenitore del testo procedura prima di applicare quelle nuove
+                if (modalProcedureText.firstChild) {
+                     removeTextClasses(modalProcedureText.firstChild);
+                }
+                removeColorClasses(closeModalBtn, 'text');
+                removeHoverClasses(closeModalBtn);
+
+                modalContentDiv.classList.add(styles.bgColorClass);
+                modalTitle.classList.add(styles.textColorClass);
+                // Il colore testo procedura è già nell'innerHTML
+                closeModalBtn.classList.add(...styles.closeBtnColorClass.split(' '));
+
+                procedureModal.classList.remove('hidden');
+                void procedureModal.offsetWidth;
+                procedureModal.classList.add('active');
+                body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                procedureModal.classList.remove('active');
+                 setTimeout(() => {
+                     procedureModal.classList.add('hidden');
+                     body.style.overflow = '';
+                     // Resetta stili modal al default
+                     removeBgClasses(modalContentDiv);
+                     removeTextClasses(modalTitle);
+                     if (modalProcedureText.firstChild) {
+                         removeTextClasses(modalProcedureText.firstChild);
+                     }
+                     removeColorClasses(closeModalBtn, 'text');
+                     removeHoverClasses(closeModalBtn);
+                     modalContentDiv.classList.add('bg-white');
+                     modalTitle.classList.add('text-gray-800');
+                     closeModalBtn.classList.add('text-gray-500', 'hover:text-gray-800', 'hover:bg-black/10');
+                 }, 200);
+            }
+
+            recipeTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const title = this.dataset.title;
+                    const procedure = this.dataset.procedure;
+                    const styles = getModalStyling(this);
+                    openModal(title, procedure, styles);
+                });
+            });
+
             closeModalBtn.addEventListener('click', closeModal);
             procedureModal.addEventListener('click', function(event) { if (event.target === procedureModal) { closeModal(); } });
             document.addEventListener('keydown', function(event) { if (event.key === 'Escape' && procedureModal.classList.contains('active')) { closeModal(); } });
