@@ -234,6 +234,16 @@
                      <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
                          <ul class="list-none space-y-1"></ul> </div>
                  </details>
+                 <details class="material-card bg-white" data-category="Bibite">
+                     <summary class="material-summary bg-cyan-100 text-cyan-800 border-b-transparent hover:bg-cyan-200/50">
+                          <span class="flex items-center">
+                              <svg class="category-icon text-cyan-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5h4v14h-4V5Z"/><path d="M10 5C10 4.4 9.6 4 9 4H8a1 1 0 0 0-1 1v1"/><path d="M14 5c0-1.1.9-2 2-2h0a1 1 0 0 1 1 1v1"/><path d="M14 19h-4"/><path d="M14 19c0 1.1.9 2 2 2h0a1 1 0 0 0 1-1v-1"/><path d="M10 19c0 1.1-.9 2-2 2H7a1 1 0 0 1-1-1v-1"/></svg>
+                              Bibite
+                          </span>
+                     </summary>
+                     <div class="shopping-list-container text-sm sm:text-base text-gray-700 border-t border-gray-200">
+                         <ul class="list-none space-y-1"></ul> </div>
+                 </details>
                  <details class="material-card bg-white" data-category="Legumi & Conservati">
                      <summary class="material-summary bg-yellow-100 text-yellow-800 border-b-transparent hover:bg-yellow-200/50">
                           <span class="flex items-center">
@@ -397,11 +407,12 @@
             function saveShoppingList() { try { localStorage.setItem(SHOPPING_LIST_STORAGE_KEY, JSON.stringify(shoppingListData)); console.log("Lista spesa salvata"); } catch (e) { console.error("Errore salvataggio lista spesa:", e); } }
             function generateItemId() { return `sl-custom-${Date.now()}-${Math.random().toString(16).slice(2)}`; }
 
-            // --- Logica di Categorizzazione ---
+            // --- Logica di Categorizzazione (con Bibite) ---
             const categoryKeywords = {
               'Frutta e Verdura': ['mela', 'mele', 'pera', 'pere', 'banana', 'banane', 'limone', 'limoni', 'arancia', 'arance', 'rucola', 'pomodoro', 'pomodori', 'pomodorini', 'zucchina', 'zucchine', 'asparagi', 'spinaci', 'carota', 'carote', 'sedano', 'insalata', 'patata', 'patate', 'melanzana', 'melanzane', 'aglio', 'cipolla', 'cipolle', 'fungo', 'funghi', 'prezzemolo', 'rosmarino', 'basilico', 'frutta', 'verdura', 'ortaggi', 'insalata mista'],
               'Proteine': ['pollo', 'tacchino', 'manzo', 'misto', 'macinato', 'salmone', 'orata', 'merluzzo', 'pesce', 'gamberetti', 'uova', 'carne', 'affettato', 'prosciutto', 'salsiccia', 'wurstel', 'tonno', 'sgombro'],
               'Latticini & Frigo': ['latte', 'yogurt', 'ricotta', 'ricottine', 'fiocchi', 'formaggio', 'mozzarella', 'stracchino', 'panna', 'burro', 'latte p.s.'],
+              'Bibite': ['acqua', 'succo', 'spremuta', 'aranciata', 'cola', 'tè', 'the', 'tisana', 'birra', 'vino', 'bibita', 'bibite', 'gassosa', 'bevanda', 'fanta', 'sprite', 'coca'], // Aggiunta categoria Bibite
               'Legumi & Conservati': ['lenticchie', 'fagioli', 'ceci', 'piselli', 'pelati', 'passata', 'capperi', 'legumi', 'conserve', 'mais', 'olive'],
               'Dispensa': ['biscotti', 'pasta', 'pane', 'gallette', 'olio', 'proteine in polvere', 'arachidi', 'frutta secca', 'noci', 'mandorle', 'pane grattugiato', 'riso', 'farro', 'orzo', 'cacao', 'origano', 'sale', 'pepe', 'spezie', 'farina', 'zucchero', 'caffè', 'tè', 'cereali', 'miele', 'marmellata', 'aceto', 'lievito', 'dado', 'brodo']
             };
@@ -537,7 +548,8 @@
                 if (storedList) {
                     try {
                         shoppingListData = JSON.parse(storedList);
-                         const categories = ["Frutta e Verdura", "Proteine", "Latticini & Frigo", "Legumi & Conservati", "Dispensa", "Altro"];
+                         // Assicura che tutte le categorie esistano, inclusa Bibite
+                         const categories = ["Frutta e Verdura", "Proteine", "Latticini & Frigo", "Bibite", "Legumi & Conservati", "Dispensa", "Altro"];
                          categories.forEach(cat => { if (!Array.isArray(shoppingListData[cat])) shoppingListData[cat] = []; });
                         console.log("Lista spesa caricata da localStorage.");
                     } catch (e) { console.error("Errore parsing lista spesa, inizializzo default.", e); setDefaultShoppingList(); }
@@ -551,6 +563,7 @@
                     "Frutta e Verdura": [ { id: "sl-item-default-1", text: "Mele (2)", checked: false }, { id: "sl-item-default-2", text: "Pere (2-3)", checked: false }, { id: "sl-item-default-3", text: "Banane (2)", checked: false }, { id: "sl-item-default-4", text: "Limoni (q.b.)", checked: false }, { id: "sl-item-default-5", text: "Rucola (1 busta)", checked: false }, { id: "sl-item-default-6", text: "Pomodori (~500g + pomodorini)", checked: false }, { id: "sl-item-default-7", text: "Zucchine (3-4)", checked: false }, { id: "sl-item-default-8", text: "Asparagi (1 mazzo)", checked: false }, { id: "sl-item-default-9", text: "Spinaci freschi (2-3 buste)", checked: false }, { id: "sl-item-default-10", text: "Carote (1 mazzo/busta)", checked: false }, { id: "sl-item-default-11", text: "Sedano (1 costa)", checked: false }, { id: "sl-item-default-12", text: "Insalata mista (1-2 buste)", checked: false }, { id: "sl-item-default-13", text: "Patate (~1.5 kg)", checked: false }, { id: "sl-item-default-14", text: "Melanzane (2-3)", checked: false }, { id: "sl-item-default-15", text: "Aglio (q.b.)", checked: false }, { id: "sl-item-default-16", text: "Cipolle (q.b.)", checked: false }, { id: "sl-item-default-17", text: "Funghi champignon (~150g)", checked: false }, { id: "sl-item-default-18", text: "Prezzemolo fresco (1 mazzetto)", checked: false }, { id: "sl-item-default-19", text: "Rosmarino fresco (facoltativo)", checked: false } ],
                     "Proteine": [ { id: "sl-item-default-20", text: "Petto di pollo (~730g)", checked: false }, { id: "sl-item-default-21", text: "Cosce di pollo (~200g)", checked: false }, { id: "sl-item-default-22", text: "Petto di tacchino (~200g)", checked: false }, { id: "sl-item-default-23", text: "Macinato magro Manzo/Misto (~330g)", checked: false }, { id: "sl-item-default-24", text: "Salmone (~180g)", checked: false }, { id: "sl-item-default-25", text: "Orata/Merluzzo/Pesce bianco (~200g)", checked: false }, { id: "sl-item-default-26", text: "Gamberetti (~150g)", checked: false }, { id: "sl-item-default-27", text: "Uova (3 + albumi)", checked: false } ],
                     "Latticini & Frigo": [ { id: "sl-item-default-28", text: "Latte p.s. (~2L)", checked: false }, { id: "sl-item-default-29", text: "Yogurt greco 0% (~5 vasetti)", checked: false }, { id: "sl-item-default-30", text: "Ricottine (~3 vasetti)", checked: false }, { id: "sl-item-default-31", text: "Fiocchi di latte (~2 vasetti)", checked: false }, { id: "sl-item-default-32", text: "Formaggio spalmabile prot. (1)", checked: false }, { id: "sl-item-default-33", text: "Ricotta fresca (~50g)", checked: false } ],
+                    "Bibite": [], // Aggiunta categoria vuota
                     "Legumi & Conservati": [ { id: "sl-item-default-34", text: "Lenticchie secche/in scatola (~300g)", checked: false }, { id: "sl-item-default-35", text: "Pomodori pelati/passata (~1kg)", checked: false }, { id: "sl-item-default-36", text: "Capperi (vasetto piccolo, fac.)", checked: false } ],
                     "Dispensa": [ { id: "sl-item-default-37", text: "Biscotti secchi/cereali (~630g)", checked: false }, { id: "sl-item-default-38", text: "Pasta integrale (~300g)", checked: false }, { id: "sl-item-default-39", text: "Pasta mista/Ditalini (~100g)", checked: false }, { id: "sl-item-default-40", text: "Pane integrale (~250g)", checked: false }, { id: "sl-item-default-41", text: "Gallette di Riso/Mais (~2 pacchi)", checked: false }, { id: "sl-item-default-42", text: "Olio Extra Vergine d'Oliva (q.b.)", checked: false }, { id: "sl-item-default-43", text: "Proteine in polvere (q.b.)", checked: false }, { id: "sl-item-default-44", text: "Burro d'arachidi (q.b.)", checked: false }, { id: "sl-item-default-45", text: "Frutta secca (noci/mandorle) (~100g)", checked: false }, { id: "sl-item-default-46", text: "Pane grattugiato (q.b.)", checked: false }, { id: "sl-item-default-47", text: "Riso Basmati/Integrale (~430g)", checked: false }, { id: "sl-item-default-48", text: "Farro/Orzo perlato (~130g + ~130g)", checked: false }, { id: "sl-item-default-49", text: "Cacao amaro (q.b.)", checked: false }, { id: "sl-item-default-50", text: "Origano (q.b.)", checked: false }, { id: "sl-item-default-51", text: "Sale, Pepe, Spezie varie (q.b.)", checked: false } ],
                     "Altro": []
@@ -566,28 +579,21 @@
             }
 
 
-            // --- Gestione Aggiunta Nuovo Articolo (con log dettagliati) ---
+            // --- Gestione Aggiunta Nuovo Articolo ---
             if (addItemForm && newItemInput) {
                 console.log("Add item form found. Attaching listener.");
                 addItemForm.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Previene ricarica pagina
-                    console.log("Add item form submitted."); // Log submit event
-
+                    event.preventDefault();
+                    console.log("Add item form submitted.");
                     const newItemText = newItemInput.value.trim();
                     console.log(`New item text: "${newItemText}"`);
 
                     if (newItemText) {
                         const category = categorizeItem(newItemText);
                         console.log(`Determined category: ${category}`);
-
-                        const newItem = {
-                            id: generateItemId(),
-                            text: newItemText,
-                            checked: false
-                        };
+                        const newItem = { id: generateItemId(), text: newItemText, checked: false };
                         console.log("Generated new item object:", newItem);
 
-                        // Assicura che l'array della categoria esista
                         if (!Array.isArray(shoppingListData[category])) {
                             console.warn(`Category "${category}" not found or not an array. Initializing.`);
                             shoppingListData[category] = [];
@@ -599,40 +605,85 @@
                             console.log(`After push - ${category} items count:`, shoppingListData[category].length);
 
                             console.log("Calling saveShoppingList...");
-                            saveShoppingList(); // Salva i dati aggiornati
+                            saveShoppingList();
                             console.log("Calling renderShoppingList...");
-                            renderShoppingList(); // Ri-renderizza l'intera lista
+                            renderShoppingList(); // Aggiorna UI
                             console.log("renderShoppingList finished.");
 
-                            newItemInput.value = ''; // Pulisci input
+                            newItemInput.value = '';
                             console.log(`Added: "${newItemText}" to ${category}. Input cleared.`);
 
-                            // Apri la categoria dove è stato aggiunto l'elemento
                             const categoryDetail = listaSpesaView.querySelector(`.material-card[data-category="${category}"]`);
                             if(categoryDetail) { categoryDetail.open = true; console.log(`Opened category detail: ${category}`); }
                             else { console.warn(`Could not find category detail element for: ${category}`); }
 
-                        } catch (error) {
-                            console.error("Error during add item process:", error); // Log any errors during the process
-                        }
-
-                    } else {
-                        console.log("New item text is empty. Nothing added.");
-                    }
+                        } catch (error) { console.error("Error during add item process:", error); }
+                    } else { console.log("New item text is empty. Nothing added."); }
                 });
-            } else {
-                console.error("Add item form or input element not found!");
-            }
+            } else { console.error("Add item form or input element not found!"); }
 
             // --- Logica Modale Ricette ---
-            function getModalStyling(triggerElement) { /* ... (invariato) ... */ }
-            function removeColorClasses(element, prefix) { /* ... (invariato) ... */ }
-            function removeBgClasses(element) { /* ... (invariato) ... */ }
-            function removeTextClasses(element) { /* ... (invariato) ... */ }
-            function removeHoverClasses(element) { /* ... (invariato) ... */ }
-            function openModal(title, procedure, styles) { /* ... (invariato) ... */ }
-            function closeModal() { /* ... (invariato) ... */ }
-            // Attach listeners
+            function getModalStyling(triggerElement) {
+                 const dayCard = triggerElement.closest('.material-card');
+                 const daySummary = dayCard ? dayCard.querySelector('.material-summary') : null;
+                 let bgColorClass = 'bg-white'; let textColorClass = 'text-gray-800';
+                 let closeBtnColorClass = 'text-gray-500 hover:text-gray-800 hover:bg-black/10';
+                 let markerColorClass = 'marker:text-gray-500';
+
+                 if (daySummary) {
+                     const bgMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('bg-') && cls.endsWith('-100'));
+                     const textMatch = Array.from(daySummary.classList).find(cls => cls.startsWith('text-') && cls.endsWith('-800'));
+                     if (bgMatch) bgColorClass = bgMatch;
+                     if (textMatch) {
+                         textColorClass = textMatch;
+                         const baseColor = textMatch.split('-')[1];
+                         closeBtnColorClass = `text-${baseColor}-700 hover:text-${baseColor}-900 hover:bg-${baseColor}-200/50`;
+                         markerColorClass = `marker:text-${baseColor}-700`;
+                     }
+                 }
+                 return { bgColorClass, textColorClass, closeBtnColorClass, markerColorClass };
+             }
+            function removeColorClasses(element, prefix) { if (!element) return; const classesToRemove = Array.from(element.classList).filter(cls => cls.startsWith(prefix + '-')); element.classList.remove(...classesToRemove); }
+            function removeBgClasses(element) { removeColorClasses(element, 'bg'); }
+            function removeTextClasses(element) { removeColorClasses(element, 'text'); removeColorClasses(element, 'marker:text'); }
+            function removeHoverClasses(element) { if (!element) return; const classesToRemove = Array.from(element.classList).filter(cls => cls.startsWith('hover:')); element.classList.remove(...classesToRemove); }
+
+            function openModal(title, procedure, styles) {
+                 if (!modalTitle || !modalProcedureText || !modalContentDiv || !closeModalBtn || !procedureModal) { console.error("Modal elements not found!"); return; }
+                 modalTitle.textContent = title || 'Procedimento';
+                 const steps = procedure ? procedure.split('|') : [];
+                 let procedureHtml = `<p class="${styles.textColorClass}">Procedimento non specificato.</p>`;
+                 if (steps.length > 0 && steps[0].trim() !== '') {
+                     procedureHtml = `<ol class="${styles.textColorClass}">`;
+                     steps.forEach(step => { procedureHtml += `<li class="${styles.markerColorClass}">${step.trim()}</li>`; });
+                     procedureHtml += '</ol>';
+                 }
+                 modalProcedureText.innerHTML = procedureHtml;
+
+                 removeBgClasses(modalContentDiv); removeTextClasses(modalTitle);
+                 if (modalProcedureText.firstChild) removeTextClasses(modalProcedureText.firstChild);
+                 removeColorClasses(closeModalBtn, 'text'); removeHoverClasses(closeModalBtn);
+
+                 modalContentDiv.classList.add(styles.bgColorClass);
+                 modalTitle.classList.add(styles.textColorClass);
+                 closeModalBtn.classList.add(...styles.closeBtnColorClass.split(' '));
+
+                 procedureModal.classList.remove('hidden'); void procedureModal.offsetWidth;
+                 procedureModal.classList.add('active'); body.style.overflow = 'hidden';
+             }
+            function closeModal() {
+                  if (!modalContentDiv || !modalTitle || !closeModalBtn || !procedureModal) return;
+                 procedureModal.classList.remove('active');
+                  setTimeout(() => {
+                      procedureModal.classList.add('hidden'); body.style.overflow = '';
+                      removeBgClasses(modalContentDiv); removeTextClasses(modalTitle);
+                      if (modalProcedureText.firstChild) removeTextClasses(modalProcedureText.firstChild);
+                      removeColorClasses(closeModalBtn, 'text'); removeHoverClasses(closeModalBtn);
+                      modalContentDiv.classList.add('bg-white'); modalTitle.classList.add('text-gray-800');
+                      closeModalBtn.classList.add('text-gray-500', 'hover:text-gray-800', 'hover:bg-black/10');
+                  }, 200);
+             }
+            // Attach listeners for modals
             if(recipeTriggers && recipeTriggers.length > 0) { recipeTriggers.forEach(trigger => { trigger.addEventListener('click', function(event) { event.preventDefault(); const title = this.dataset.title; const procedure = this.dataset.procedure; const styles = getModalStyling(this); openModal(title, procedure, styles); }); }); } else { console.warn("No recipe triggers found."); }
             if(closeModalBtn) { closeModalBtn.addEventListener('click', closeModal); } else { console.error("Close modal button not found."); }
             if(procedureModal) { procedureModal.addEventListener('click', function(event) { if (event.target === procedureModal) { closeModal(); } }); document.addEventListener('keydown', function(event) { if (event.key === 'Escape' && procedureModal.classList.contains('active')) { closeModal(); } }); } else { console.error("Procedure modal element not found."); }
